@@ -134,7 +134,7 @@
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.684" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.684#684" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -208,13 +208,13 @@
 
     <script>
         /* =========================================
-           DATOS FIJOS CAPÍTULO 17
+           DATOS CAPÍTULO 17
            ========================================= */
         const DATA = {
             title: "Cap 17: Heraldos del Evangelio",
             intro: "Pablo y Bernabé son apartados por el Espíritu Santo para su primera gira misionera. Viajan a Chipre, donde enfrentan oposición espiritual y ganan almas.",
             img: "cap17.jpg",
-            link: "https://m.egwwritings.org/es/book/198.684", // ENLACE CORREGIDO
+            link: "https://m.egwwritings.org/es/book/198.684#684", // <-- ENLACE ACTUALIZADO
             memoryPairs: [
                 {a:"Elimas", b:"Mago"}, {a:"Sergio", b:"Proconsul"}, {a:"Chipre", b:"Isla"},
                 {a:"Espíritu", b:"Santo"}, {a:"Ceguera", b:"Castigo"}, {a:"Juan", b:"Marcos"}
@@ -234,7 +234,7 @@
             sopa: ["CHIPRE","ELIMAS","SERGIO","PAFOS","PABLO","MAGO"]
         };
 
-        /* SISTEMA SIMPLE (SIN LOCALSTORAGE) */
+        /* SISTEMA SIMPLE */
         let currentScore = 0;
         const PTS = 100;
         
@@ -250,7 +250,6 @@
             document.getElementById('home-title').innerText = DATA.title;
             document.getElementById('home-desc').innerText = DATA.intro;
             
-            // Imagen
             let img = document.getElementById('home-img');
             img.src = DATA.img;
             
@@ -414,179 +413,3 @@
                 }
                 h += "</div></div>";
                 c.innerHTML += h;
-            });
-            setTimeout(function() {
-                let inps = document.querySelectorAll('.cw-cell-input');
-                inps.forEach(function(inp, i) {
-                    inp.oninput = function() {
-                        if(this.value && inps[i+1]) inps[i+1].focus();
-                    };
-                });
-            }, 500);
-        }
-        
-        function checkCrossword() {
-            let err = 0;
-            document.querySelectorAll('.cw-cell-input').forEach(function(i) {
-                if(i.value.toUpperCase() === i.dataset.l) {
-                    i.style.backgroundColor = "#00ff9d";
-                    i.style.color = "black";
-                    i.disabled = true;
-                } else {
-                    i.value = i.dataset.l;
-                    i.style.color = "orange";
-                    err++;
-                }
-            });
-            if(err === 0) {
-                document.getElementById('cw-feedback').innerHTML = "<span class='success-msg'>¡PERFECTO!</span>";
-                gameWin();
-            } else {
-                document.getElementById('cw-feedback').innerHTML = "<span class='error-msg'>Revelado</span>";
-            }
-        }
-
-        function checkCode() {
-            let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(DATA.code && (val === DATA.code.sol || val.startsWith("APARTADME"))) {
-                document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>CORRECTO</span>";
-                gameWin();
-            } else {
-                document.getElementById('code-feedback').innerHTML = "<span class='error-msg'>ERROR</span>";
-            }
-            document.getElementById('code-clue').innerText = DATA.code ? DATA.code.hint : "---";
-        }
-
-        function initSopa() {
-            let l = document.getElementById('word-list');
-            let g = document.getElementById('grid-container');
-            l.innerHTML = "";
-            g.innerHTML = "";
-            curWordSel = [];
-            wordsFound = 0;
-            let letters = new Array(100).fill(null);
-            
-            DATA.sopa.forEach(function(w) {
-                l.innerHTML += "<span id='badge-" + w + "' style='margin-right:5px'>#" + w + "</span>";
-                let placed = false;
-                let tryC = 0;
-                while(!placed && tryC < 50) {
-                    let d = Math.random() > 0.5 ? 'H' : 'V';
-                    let r = Math.floor(Math.random() * 10);
-                    let c = Math.floor(Math.random() * 10);
-                    let fits = true;
-                    for(let i=0; i<w.length; i++) {
-                        let idx = d === 'H' ? r*10+(c+i) : (r+i)*10+c;
-                        if((d==='H' && c+i>9) || (d==='V' && r+i>9) || (letters[idx] && letters[idx] !== w[i])) fits = false;
-                    }
-                    if(fits) {
-                        for(let i=0; i<w.length; i++) {
-                            let idx = d === 'H' ? r*10+(c+i) : (r+i)*10+c;
-                            letters[idx] = w[i];
-                        }
-                        placed = true;
-                    }
-                    tryC++;
-                }
-            });
-            
-            let abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            for(let i=0; i<100; i++) {
-                let d = document.createElement('div');
-                d.className = 'cell';
-                d.innerText = letters[i] || abc[Math.floor(Math.random() * abc.length)];
-                d.onclick = function() { clickSopa(d); };
-                g.appendChild(d);
-            }
-        }
-        
-        function clickSopa(el) {
-            if(el.classList.contains('selected')) {
-                el.classList.remove('selected');
-                curWordSel = curWordSel.filter(function(e) { return e !== el; });
-            } else {
-                el.classList.add('selected');
-                curWordSel.push(el);
-            }
-            let s = curWordSel.map(function(e) { return e.innerText; }).join('');
-            if(DATA.sopa.includes(s)) foundSopa(s);
-            else if(DATA.sopa.includes(s.split('').reverse().join(''))) foundSopa(s.split('').reverse().join(''));
-        }
-        
-        function foundSopa(w) {
-            playSound('drum');
-            curWordSel.forEach(function(e) { e.classList.remove('selected'); e.classList.add('found'); });
-            let badge = document.getElementById('badge-' + w);
-            if(badge) badge.style.opacity = "0.3";
-            curWordSel = [];
-            wordsFound++;
-            if(wordsFound === DATA.sopa.length) {
-                document.getElementById('sopa-game-area').style.display = 'none';
-                document.getElementById('word-success-container').style.display = 'block';
-                gameWin();
-            }
-        }
-        function resetSelection() {
-            curWordSel.forEach(function(e) { e.classList.remove('selected'); });
-            curWordSel = [];
-        }
-
-        function initPuzzle() {
-            const c = document.getElementById('puzzle-container');
-            c.innerHTML = '';
-            pieces = [];
-            let bgImage = DATA.img;
-            for(let y=0; y<3; y++) {
-                for(let x=0; x<3; x++) {
-                    if(x===2 && y===2) continue;
-                    let p = document.createElement('div');
-                    p.className = 'puzzle-piece';
-                    p.style.left = (x*100) + 'px';
-                    p.style.top = (y*100) + 'px';
-                    p.style.backgroundImage = "url('" + bgImage + "'), url('portada.jpg')";
-                    p.style.backgroundPosition = "-" + (x*100) + "px -" + (y*100) + "px";
-                    p.x = x; p.y = y; p.cx = x; p.cy = y;
-                    p.onclick = function() { movePiece(p); };
-                    c.appendChild(p);
-                    pieces.push(p);
-                }
-            }
-            emptySlot = { x: 2, y: 2 };
-            setTimeout(mixPuzzle, 500);
-        }
-        
-        function movePiece(p) {
-            if(Math.abs(p.x - emptySlot.x) + Math.abs(p.y - emptySlot.y) === 1) {
-                p.style.left = (emptySlot.x * 100) + 'px';
-                p.style.top = (emptySlot.y * 100) + 'px';
-                let tx = p.x; let ty = p.y;
-                p.x = emptySlot.x; p.y = emptySlot.y;
-                emptySlot.x = tx; emptySlot.y = ty;
-                checkPuzzle();
-            }
-        }
-        
-        function mixPuzzle() {
-            for(let i=0; i<150; i++) {
-                let n = pieces.filter(function(p) { return Math.abs(p.x - emptySlot.x) + Math.abs(p.y - emptySlot.y) === 1; });
-                if(n.length) {
-                    let r = n[Math.floor(Math.random() * n.length)];
-                    let tx = r.x; let ty = r.y;
-                    r.x = emptySlot.x; r.y = emptySlot.y;
-                    r.style.left = (emptySlot.x * 100) + 'px';
-                    r.style.top = (emptySlot.y * 100) + 'px';
-                    emptySlot.x = tx; emptySlot.y = ty;
-                }
-            }
-            document.getElementById('puzzle-feedback').innerHTML = "";
-        }
-        
-        function checkPuzzle() {
-            if(pieces.every(function(p) { return p.x === p.cx && p.y === p.cy; })) {
-                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
-                gameWin();
-            }
-        }
-    </script>
-</body>
-</html>
