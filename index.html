@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Misión: HECHOS 17</title>
     <style>
-        /* ESTILOS GENERALES */
         :root {
             --bg-color: #0f0f13;
             --card-bg: #1a1a20;
@@ -23,6 +22,7 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
+            /* Fondo fijo */
             background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
             background-size: cover; 
             background-attachment: fixed; 
@@ -44,7 +44,7 @@
             background: var(--card-bg); border-radius: 16px; padding: 20px; margin-bottom: 20px; 
             border: 1px solid #333; display: none; animation: slideUp 0.4s ease-out;
         }
-        /* IMPORTANTE: view-home activo por defecto */
+        /* CLASE ACTIVE PARA MOSTRAR */
         .card.active { display: block; }
         
         @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
@@ -61,9 +61,531 @@
         input { background: #25252e; border: 1px solid #444; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 1rem; text-align: center; }
         input:focus { outline: none; border-color: var(--accent); }
 
-        /* JUEGOS */
-        .stats-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
-        .stats-table td { padding: 8px; border-bottom: 1px solid #333; }
-        
+        /* ESTILOS JUEGOS */
         .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px;
+        .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px; transition: transform 0.2s; }
+        .mem-card.flipped { background: var(--accent); color: black; font-weight: bold; border-color: white; transform: scale(1.05); }
+        .mem-card.matched { background: var(--success); color: black; opacity: 0.5; pointer-events: none; }
+
+        #hangman-word { font-family: monospace; font-size: 1.5rem; letter-spacing: 3px; text-align: center; margin: 20px 0; color: var(--success); word-break: break-all;}
+        .keyboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .key-btn { background: #333; padding: 8px 0; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #444; }
+        .key-btn.correct { background: var(--success); color: black; }
+        .key-btn.wrong { background: var(--error); opacity: 0.3; }
+
+        #puzzle-container { position: relative; width: 300px; height: 300px; margin: 0 auto; border: 2px solid var(--accent); overflow: hidden; background: #222; }
+        .puzzle-piece { position: absolute; width: 100px; height: 100px; border: 1px solid #000; box-sizing: border-box; transition: all 0.2s ease; cursor: pointer; background-size: 300px 300px; }
+
+        .word-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; margin-top: 15px; }
+        .cell { aspect-ratio: 1; background: #25252e; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 3px; font-size: 0.8rem; }
+        .cell.selected { background: var(--accent); color: black; }
+        .cell.found { background: var(--success); color: black; }
+
+        .cw-inputs { display: flex; gap: 3px; margin-top: 5px; }
+        .cw-cell-input { width: 25px; height: 30px; padding: 0; background: #222; border: 1px solid #555; color: white; text-align: center; text-transform: uppercase; }
+
+        /* BARRA DE NAVEGACION SIEMPRE VISIBLE */
+        .nav-bar { 
+            display: flex; /* Forzamos flex */
+            justify-content: space-around; /* Distribuir espacio */
+            gap: 5px; 
+            background: #15151a; 
+            padding: 10px; 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            border-top: 1px solid #333; 
+            z-index: 1000; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            box-sizing: border-box;
+        }
+        .nav-item { color: #666; font-size: 0.65rem; text-align: center; cursor: pointer; min-width: 10%; display: inline-block; }
+        .nav-item.active { color: var(--accent); transform: translateY(-3px); }
+        .nav-icon { display: block; font-size: 1.4rem; }
+        
+        .feedback { text-align: center; margin-top: 10px; font-weight: bold; padding: 10px; }
+        .success-msg { color: var(--success); } .error-msg { color: var(--error); }
+    </style>
+</head>
+<body>
+
+    <audio id="sound-win" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
+    <audio id="sound-lose" src="https://www.soundjay.com/misc/sounds/fail-buzzer-01.mp3"></audio>
+    <audio id="sound-drum" src="https://www.soundjay.com/percussion/sounds/snare-drum-01.mp3"></audio> 
+
+    <header>
+        <div class="header-left">
+            <h1 id="app-title">Misión Hechos</h1>
+        </div>
+        <div class="header-right">
+            <div class="score-box">⭐ <span id="score-display">0</span></div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div id="view-home" class="card active">
+            <h2 id="home-title">Cargando...</h2>
+            <div class="img-box">
+                <img id="home-img" src="" alt="Imagen Capitulo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'">
+            </div>
+            <p id="home-desc"></p>
+            
+            <a id="read-btn" href="#" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+        </div>
+
+        <div id="view-puzzle" class="card">
+            <h2>🧩 Puzzle</h2>
+            <div id="puzzle-container"></div>
+            <button class="btn" onclick="mixPuzzle()">Mezclar</button>
+            <div id="puzzle-feedback" class="feedback"></div>
+        </div>
+
+        <div id="view-memory" class="card">
+            <h2>🧠 Memoria</h2>
+            <div id="memory-board" class="memory-grid"></div>
+            <div id="memory-feedback" class="feedback"></div>
+            <button class="btn" onclick="initMemory()">Reiniciar</button>
+        </div>
+
+        <div id="view-hangman" class="card">
+            <h2>💀 Ahorcado</h2>
+            <p style="text-align:center">Pista: <span id="hangman-hint" style="color:var(--accent)"></span></p>
+            <div id="hangman-lives" style="text-align:center"></div>
+            <div id="hangman-word"></div>
+            <div class="keyboard" id="hangman-keyboard"></div>
+            <div id="hangman-feedback" class="feedback"></div>
+        </div>
+
+        <div id="view-quiz" class="card">
+            <h2>⚡ Quiz</h2>
+            <p id="quiz-question" style="font-weight:bold"></p>
+            <div id="quiz-options"></div>
+            <div id="quiz-feedback" class="feedback"></div>
+        </div>
+
+        <div id="view-crossword" class="card">
+            <h2>📝 Completar</h2>
+            <div id="cw-list-container"></div>
+            <button class="btn" onclick="checkCrossword()">Verificar</button>
+            <div id="cw-feedback" class="feedback"></div>
+        </div>
+
+        <div id="view-code" class="card">
+            <h2>🔓 Código</h2>
+            <p>Pista: <span id="code-clue" style="color:var(--accent)"></span></p>
+            <input type="text" id="code-input" placeholder="Respuesta...">
+            <button class="btn" onclick="checkCode()">Desbloquear</button>
+            <div id="code-feedback" class="feedback"></div>
+        </div>
+
+        <div id="view-words" class="card">
+            <h2>🔎 Sopa de Letras</h2>
+            <div id="word-list" style="color:var(--accent); font-size:0.8rem; margin-bottom:10px;"></div>
+            <div id="sopa-game-area">
+                <div class="word-grid" id="grid-container"></div>
+                <button class="btn btn-primary" onclick="resetSelection()">Borrar</button>
+            </div>
+            <div id="word-success-container" style="display:none; text-align:center; padding:20px;">
+                <h3 style="color:var(--success)">¡COMPLETADO!</h3>
+            </div>
+        </div>
+    </div>
+
+    <nav class="nav-bar" id="main-nav">
+        <div class="nav-item active" onclick="navTo('view-home')"><span class="nav-icon">🏠</span></div>
+        <div class="nav-item" onclick="navTo('view-puzzle')"><span class="nav-icon">🧩</span></div>
+        <div class="nav-item" onclick="navTo('view-memory')"><span class="nav-icon">🧠</span></div>
+        <div class="nav-item" onclick="navTo('view-hangman')"><span class="nav-icon">💀</span></div>
+        <div class="nav-item" onclick="navTo('view-quiz')"><span class="nav-icon">⚡</span></div>
+        <div class="nav-item" onclick="navTo('view-crossword')"><span class="nav-icon">📝</span></div>
+        <div class="nav-item" onclick="navTo('view-code')"><span class="nav-icon">🔓</span></div>
+        <div class="nav-item" onclick="navTo('view-words')"><span class="nav-icon">🔎</span></div>
+    </nav>
+
+    <script>
+        /* DATOS CAPÍTULO 17 */
+        const DATA = {
+            title: "Cap 17: Heraldos del Evangelio",
+            intro: "Pablo y Bernabé son apartados por el Espíritu Santo para su primera gira misionera. Viajan a Chipre, donde enfrentan oposición espiritual y ganan almas.",
+            img: "cap17.jpg",
+            link: "https://m.egwwritings.org/es/book/198.966",
+            memoryPairs: [
+                {a:"Elimas", b:"Mago"}, {a:"Sergio", b:"Proconsul"}, {a:"Chipre", b:"Isla"},
+                {a:"Espíritu", b:"Santo"}, {a:"Ceguera", b:"Castigo"}, {a:"Juan", b:"Marcos"}
+            ],
+            hangman: { word: "CEGUERA", hint: "El castigo que recibió el mago..." },
+            quiz: [
+                { q: "¿Quién era Sergio Paulo?", opts: ["Mago","Procónsul","Sacerdote"], c: 1 },
+                { q: "¿Quién se opuso a Pablo?", opts: ["Elimas","Juan","Bernabé"], c: 0 },
+                { q: "¿Qué ciudad de Chipre visitaron?", opts: ["Pafos","Roma","Atenas"], c: 0 }
+            ],
+            words: [
+                {p:"Lugar de partida", w:"SELEUCIA"}, 
+                {p:"Primera ciudad en Chipre", w:"SALAMINA"}, 
+                {p:"Donde estaba el procónsul", w:"PAFOS"}
+            ],
+            code: { hint: "1-16-1-18-20-1-4-13-5", sol: "APARTADME" }, 
+            sopa: ["CHIPRE","ELIMAS","SERGIO","PAFOS","PABLO","MAGO"]
+        };
+
+        /* SISTEMA SIMPLE */
+        let totalScore = 0;
+        const PTS = 100;
+        let memCards=[], hasFlipped=false, lockBoard=false, firstCard, secondCard;
+        let hangmanState={ word:"", guessed:[], lives:6 }, quizIdx=0, curWordSel=[], wordsFound=0, pieces=[], emptySlot={x:2,y:2};
+
+        // INICIO AUTOMATICO
+        window.onload = function() {
+            loadContent();
+        };
+
+        function loadContent() {
+            document.getElementById('home-title').innerText = DATA.title;
+            document.getElementById('home-desc').innerText = DATA.intro;
+            
+            // Imagen
+            let img = document.getElementById('home-img');
+            img.src = DATA.img;
+            
+            // Link
+            document.getElementById('read-btn').href = DATA.link;
+            
+            // Iniciar logicas
+            initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
+        }
+
+        /* UTILS */
+        function navTo(id) { 
+            document.querySelectorAll('.card').forEach(function(c) { c.classList.remove('active'); });
+            document.getElementById(id).classList.add('active'); 
+            
+            // Marcar nav activo
+            document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+            // Encontrar el nav item clickeado es dificil aqui, asi que lo dejamos simple
+        }
+        
+        function playSound(t) { 
+            let id = t==='win' ? 'sound-win' : (t==='drum' ? 'sound-drum' : 'sound-lose');
+            let a = document.getElementById(id);
+            if(a) { a.currentTime=0; a.play().catch(function(){}); }
+        }
+        
+        function gameWin() {
+            totalScore += PTS;
+            document.getElementById('score-display').innerText = totalScore;
+            playSound('win');
+        }
+
+        /* JUEGOS */
+        function initMemory() {
+            let b = document.getElementById('memory-board'); 
+            b.innerHTML = ""; 
+            memCards = [];
+            DATA.memoryPairs.forEach(function(p, i) { 
+                memCards.push({id:i, t:p.a}); 
+                memCards.push({id:i, t:p.b}); 
+            });
+            memCards.sort(function() { return Math.random() - 0.5; });
+            memCards.forEach(function(c) {
+                let d = document.createElement('div');
+                d.className = 'mem-card';
+                d.innerText = "?";
+                d.onclick = function() { flipCard(d, c); };
+                b.appendChild(d);
+            });
+            document.getElementById('memory-feedback').innerHTML = "";
+        }
+        
+        function flipCard(el, c) {
+            if(lockBoard || el===firstCard || el.classList.contains('matched')) return;
+            el.classList.add('flipped');
+            el.innerText = c.t;
+            if(!hasFlipped) { hasFlipped=true; firstCard={el:el, c:c}; return; }
+            secondCard = {el:el, c:c};
+            lockBoard = true;
+            if(firstCard.c.id === secondCard.c.id) {
+                firstCard.el.classList.add('matched');
+                secondCard.el.classList.add('matched');
+                resetBoard();
+                if(document.querySelectorAll('.mem-card.matched').length === memCards.length) {
+                    document.getElementById('memory-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO!</span>";
+                    gameWin();
+                }
+            } else {
+                setTimeout(function() {
+                    firstCard.el.classList.remove('flipped'); firstCard.el.innerText = "?";
+                    secondCard.el.classList.remove('flipped'); secondCard.el.innerText = "?";
+                    resetBoard();
+                }, 1000);
+            }
+        }
+        function resetBoard() { hasFlipped=false; lockBoard=false; firstCard=null; secondCard=null; }
+
+        function initHangman() { 
+            hangmanState = { word: DATA.hangman.word, guessed: [], lives: 6 };
+            document.getElementById('hangman-hint').innerText = DATA.hangman.hint;
+            document.getElementById('hangman-feedback').innerHTML = "";
+            renderHangman(); 
+        }
+        
+        function renderHangman() {
+            document.getElementById('hangman-lives').innerText = "❤️".repeat(hangmanState.lives);
+            let d = "";
+            for(let i=0; i<hangmanState.word.length; i++) {
+                let c = hangmanState.word[i];
+                d += hangmanState.guessed.includes(c) ? c + " " : "_ ";
+            }
+            document.getElementById('hangman-word').innerText = d;
+            let k = document.getElementById('hangman-keyboard');
+            k.innerHTML = "";
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('').forEach(function(l) {
+                let b = document.createElement('div');
+                b.className = 'key-btn';
+                b.innerText = l;
+                if(hangmanState.guessed.includes(l)) {
+                    b.style.opacity = "0.3";
+                    if(hangmanState.word.includes(l)) b.classList.add('correct');
+                    else b.classList.add('wrong');
+                }
+                b.onclick = function() { guess(l); };
+                k.appendChild(b);
+            });
+        }
+        
+        function guess(l) {
+            if(hangmanState.lives <= 0 || hangmanState.guessed.includes(l)) return;
+            hangmanState.guessed.push(l);
+            if(!hangmanState.word.includes(l)) {
+                hangmanState.lives--;
+                playSound('lose');
+            }
+            if(hangmanState.word.split('').every(function(c) { return hangmanState.guessed.includes(c); })) {
+                document.getElementById('hangman-feedback').innerHTML = "<span class='success-msg'>¡GANASTE!</span>";
+                gameWin();
+            } else if(hangmanState.lives <= 0) {
+                document.getElementById('hangman-feedback').innerHTML = "<span class='error-msg'>Era: " + hangmanState.word + "</span>";
+            }
+            renderHangman();
+        }
+
+        function initQuiz() { quizIdx = 0; loadQ(); }
+        
+        function loadQ() {
+            if(quizIdx >= DATA.quiz.length) {
+                document.getElementById('quiz-question').innerText = "¡Fin!";
+                document.getElementById('quiz-options').innerHTML = "";
+                document.getElementById('quiz-feedback').innerHTML = "<span class='success-msg'>¡MUY BIEN!</span>";
+                gameWin();
+                return;
+            }
+            let q = DATA.quiz[quizIdx];
+            document.getElementById('quiz-question').innerText = q.q;
+            let o = document.getElementById('quiz-options');
+            o.innerHTML = "";
+            q.opts.forEach(function(op, i) {
+                let b = document.createElement('button');
+                b.className = 'btn';
+                b.innerText = op;
+                b.onclick = function() {
+                    if(i === q.c) {
+                        playSound('win');
+                        b.style.background = "var(--success)";
+                        b.style.color = "black";
+                        setTimeout(function() { quizIdx++; loadQ(); }, 1000);
+                    } else {
+                        playSound('lose');
+                        b.style.borderColor = "var(--error)";
+                    }
+                };
+                o.appendChild(b);
+            });
+        }
+
+        function initWords() {
+            let c = document.getElementById('cw-list-container');
+            c.innerHTML = "";
+            DATA.words.forEach(function(w, i) {
+                let h = "<div style='margin-bottom:10px; border-bottom:1px solid #333;'><div style='color:#ccc; font-size:0.8rem;'>" + (i+1) + ". " + w.p + "</div><div class='cw-inputs'>";
+                for(let j=0; j<w.w.length; j++) {
+                    h += "<input type='text' class='cw-cell-input' maxlength='1' data-l='" + w.w[j] + "'>";
+                }
+                h += "</div></div>";
+                c.innerHTML += h;
+            });
+            setTimeout(function() {
+                let inps = document.querySelectorAll('.cw-cell-input');
+                inps.forEach(function(inp, i) {
+                    inp.oninput = function() {
+                        if(this.value && inps[i+1]) inps[i+1].focus();
+                    };
+                });
+            }, 500);
+        }
+        
+        function checkCrossword() {
+            let err = 0;
+            document.querySelectorAll('.cw-cell-input').forEach(function(i) {
+                if(i.value.toUpperCase() === i.dataset.l) {
+                    i.style.backgroundColor = "#00ff9d";
+                    i.style.color = "black";
+                    i.disabled = true;
+                } else {
+                    i.value = i.dataset.l;
+                    i.style.color = "orange";
+                    err++;
+                }
+            });
+            if(err === 0) {
+                document.getElementById('cw-feedback').innerHTML = "<span class='success-msg'>¡PERFECTO!</span>";
+                gameWin();
+            } else {
+                document.getElementById('cw-feedback').innerHTML = "<span class='error-msg'>Revelado</span>";
+            }
+        }
+
+        function checkCode() {
+            let val = document.getElementById('code-input').value.toUpperCase().trim();
+            if(DATA.code && (val === DATA.code.sol || val.startsWith("APARTADME"))) {
+                document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>CORRECTO</span>";
+                gameWin();
+            } else {
+                document.getElementById('code-feedback').innerHTML = "<span class='error-msg'>ERROR</span>";
+            }
+            document.getElementById('code-clue').innerText = DATA.code ? DATA.code.hint : "---";
+        }
+
+        function initSopa() {
+            let l = document.getElementById('word-list');
+            let g = document.getElementById('grid-container');
+            l.innerHTML = "";
+            g.innerHTML = "";
+            curWordSel = [];
+            wordsFound = 0;
+            let letters = new Array(100).fill(null);
+            
+            DATA.sopa.forEach(function(w) {
+                l.innerHTML += "<span id='badge-" + w + "' style='margin-right:5px'>#" + w + "</span>";
+                let placed = false;
+                let tryC = 0;
+                while(!placed && tryC < 50) {
+                    let d = Math.random() > 0.5 ? 'H' : 'V';
+                    let r = Math.floor(Math.random() * 10);
+                    let c = Math.floor(Math.random() * 10);
+                    let fits = true;
+                    for(let i=0; i<w.length; i++) {
+                        let idx = d === 'H' ? r*10+(c+i) : (r+i)*10+c;
+                        if((d==='H' && c+i>9) || (d==='V' && r+i>9) || (letters[idx] && letters[idx] !== w[i])) fits = false;
+                    }
+                    if(fits) {
+                        for(let i=0; i<w.length; i++) {
+                            let idx = d === 'H' ? r*10+(c+i) : (r+i)*10+c;
+                            letters[idx] = w[i];
+                        }
+                        placed = true;
+                    }
+                    tryC++;
+                }
+            });
+            
+            let abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for(let i=0; i<100; i++) {
+                let d = document.createElement('div');
+                d.className = 'cell';
+                d.innerText = letters[i] || abc[Math.floor(Math.random() * abc.length)];
+                d.onclick = function() { clickSopa(d); };
+                g.appendChild(d);
+            }
+        }
+        
+        function clickSopa(el) {
+            if(el.classList.contains('selected')) {
+                el.classList.remove('selected');
+                curWordSel = curWordSel.filter(function(e) { return e !== el; });
+            } else {
+                el.classList.add('selected');
+                curWordSel.push(el);
+            }
+            let s = curWordSel.map(function(e) { return e.innerText; }).join('');
+            if(DATA.sopa.includes(s)) foundSopa(s);
+            else if(DATA.sopa.includes(s.split('').reverse().join(''))) foundSopa(s.split('').reverse().join(''));
+        }
+        
+        function foundSopa(w) {
+            playSound('drum');
+            curWordSel.forEach(function(e) { e.classList.remove('selected'); e.classList.add('found'); });
+            let badge = document.getElementById('badge-' + w);
+            if(badge) badge.style.opacity = "0.3";
+            curWordSel = [];
+            wordsFound++;
+            if(wordsFound === DATA.sopa.length) {
+                document.getElementById('sopa-game-area').style.display = 'none';
+                document.getElementById('word-success-container').style.display = 'block';
+                gameWin();
+            }
+        }
+        function resetSelection() {
+            curWordSel.forEach(function(e) { e.classList.remove('selected'); });
+            curWordSel = [];
+        }
+
+        function initPuzzle() {
+            const c = document.getElementById('puzzle-container');
+            c.innerHTML = '';
+            pieces = [];
+            let bgImage = "cap17.jpg"; // Forzado
+            for(let y=0; y<3; y++) {
+                for(let x=0; x<3; x++) {
+                    if(x===2 && y===2) continue;
+                    let p = document.createElement('div');
+                    p.className = 'puzzle-piece';
+                    p.style.left = (x*100) + 'px';
+                    p.style.top = (y*100) + 'px';
+                    p.style.backgroundImage = "url('" + bgImage + "'), url('portada.jpg')";
+                    p.style.backgroundPosition = "-" + (x*100) + "px -" + (y*100) + "px";
+                    p.x = x; p.y = y; p.cx = x; p.cy = y;
+                    p.onclick = function() { movePiece(p); };
+                    c.appendChild(p);
+                    pieces.push(p);
+                }
+            }
+            emptySlot = { x: 2, y: 2 };
+            setTimeout(mixPuzzle, 500);
+        }
+        
+        function movePiece(p) {
+            if(Math.abs(p.x - emptySlot.x) + Math.abs(p.y - emptySlot.y) === 1) {
+                p.style.left = (emptySlot.x * 100) + 'px';
+                p.style.top = (emptySlot.y * 100) + 'px';
+                let tx = p.x; let ty = p.y;
+                p.x = emptySlot.x; p.y = emptySlot.y;
+                emptySlot.x = tx; emptySlot.y = ty;
+                checkPuzzle();
+            }
+        }
+        
+        function mixPuzzle() {
+            for(let i=0; i<150; i++) {
+                let n = pieces.filter(function(p) { return Math.abs(p.x - emptySlot.x) + Math.abs(p.y - emptySlot.y) === 1; });
+                if(n.length) {
+                    let r = n[Math.floor(Math.random() * n.length)];
+                    let tx = r.x; let ty = r.y;
+                    r.x = emptySlot.x; r.y = emptySlot.y;
+                    r.style.left = (emptySlot.x * 100) + 'px';
+                    r.style.top = (emptySlot.y * 100) + 'px';
+                    emptySlot.x = tx; emptySlot.y = ty;
+                }
+            }
+            document.getElementById('puzzle-feedback').innerHTML = "";
+        }
+        
+        function checkPuzzle() {
+            if(pieces.every(function(p) { return p.x === p.cx && p.y === p.cy; })) {
+                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
+                gameWin();
+            }
+        }
+    </script>
+</body>
+</html>
