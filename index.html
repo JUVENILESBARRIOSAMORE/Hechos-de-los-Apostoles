@@ -23,24 +23,20 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* PORTADA DE FONDO */
             background-image: url('portada.jpg'); 
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
         }
         
-        /* HEADER */
+        /* HEADER SIMPLIFICADO */
         header { 
-            background: rgba(26, 26, 32, 0.95); padding: 10px 15px; border-bottom: 2px solid var(--accent); 
+            background: rgba(26, 26, 32, 0.95); padding: 15px; border-bottom: 2px solid var(--accent); 
             position: sticky; top: 0; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
             display: flex; justify-content: space-between; align-items: center;
         }
-        .header-left h1 { margin: 0; font-size: 0.9rem; color: var(--accent); text-transform: uppercase; }
-        .header-left .agent-name { font-size: 0.7rem; color: var(--success); font-weight: bold; }
-        .timer-box { font-family: monospace; font-size: 1.1rem; background: #000; padding: 2px 6px; border-radius: 4px; border: 1px solid #444; color: #fff; }
-        .score-box { font-size: 0.9rem; font-weight: bold; color: gold; margin-left: 10px; cursor: pointer; }
-        .header-right { display: flex; align-items: center; }
+        .header-left h1 { margin: 0; font-size: 1.1rem; color: var(--accent); text-transform: uppercase; font-weight: 900; letter-spacing: 1px; }
+        .timer-box { font-family: monospace; font-size: 1.1rem; background: #000; padding: 4px 8px; border-radius: 4px; border: 1px solid #444; color: #fff; }
 
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         
@@ -59,24 +55,9 @@
         .btn { background: transparent; border: 2px solid var(--accent); color: var(--accent); padding: 12px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; display: block; text-align: center; text-decoration: none; box-sizing: border-box; }
         .btn:active { transform: scale(0.95); }
         .btn-primary { background: var(--accent); color: #000; }
-        .btn-danger { border-color: var(--error); color: var(--error); font-size: 0.8rem; margin-top: 5px; }
 
         input { background: #25252e; border: 1px solid #444; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 1rem; text-align: center; }
         input:focus { outline: none; border-color: var(--accent); }
-
-        /* DISEÑO DE MISIÓN ACTUAL (Sin Selector) */
-        .mission-badge {
-            background: linear-gradient(45deg, #111, #222);
-            border: 2px solid var(--accent);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 0 15px rgba(255, 174, 0, 0.2);
-        }
-        .mission-label { color:#aaa; margin:0; font-size:0.8rem; letter-spacing: 2px; text-transform: uppercase; }
-        .mission-number { font-size: 3.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin: 5px 0; }
-        .mission-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; border-top: 1px solid #444; padding-top: 10px; }
 
         /* LECTOR */
         .reader-paragraph { padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 3px solid #444; cursor: pointer; background: rgba(255,255,255,0.02); line-height: 1.6; text-align: justify; }
@@ -84,10 +65,6 @@
         .reader-instruction { font-size: 0.8rem; color: #aaa; text-align: center; margin-bottom: 15px; font-style: italic; }
 
         /* JUEGOS */
-        .stats-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
-        .stats-table td { padding: 8px; border-bottom: 1px solid #333; }
-        .highlight { color: var(--accent); font-weight: bold; }
-
         .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
         .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px; transition: transform 0.2s; }
         .mem-card.flipped { background: var(--accent); color: black; font-weight: bold; border-color: white; transform: scale(1.05); }
@@ -128,53 +105,27 @@
     <header>
         <div class="header-left">
             <h1 id="app-title">Misión Hechos</h1>
-            <div class="agent-name" id="player-display">Agente: ...</div>
         </div>
         <div class="header-right">
             <div class="timer-box" id="global-timer">00:00</div>
-            <div class="score-box" onclick="showStats()">⭐ <span id="score-display">0</span></div>
         </div>
     </header>
 
     <div class="container">
         
-        <div id="view-login" class="card active" style="text-align:center;">
-            <h2>🕵️ Archivos de Misión</h2>
-            
-            <div class="mission-badge">
-                <p class="mission-label">CAPÍTULO ACTUAL</p>
-                <div class="mission-number">17</div>
-                <div class="mission-title">Heraldos del Evangelio</div>
-            </div>
-            
-            <p style="margin-bottom:5px; color:#aaa; margin-top:20px;">Nombre Agente:</p>
-            <input type="text" id="login-name" placeholder="Tu Nombre...">
-            
-            <button class="btn btn-primary" onclick="handleLogin()">INICIAR MISIÓN</button>
-        </div>
-
-        <div id="view-home" class="card">
+        <div id="view-home" class="card active">
             <h2 id="home-title"></h2>
             <div class="img-box">
                 <img id="home-img" src="cap17.jpg" alt="Imagen Capitulo" onerror="this.src='portada.jpg'">
             </div>
             <p id="home-desc"></p>
             <button class="btn btn-primary" onclick="initReader()">📖 Leer y Resaltar</button>
-            <button class="btn btn-primary" style="border-color:#555; color:#aaa; margin-top:10px;" onclick="showStats()">🏆 Ranking</button>
-            <button class="btn btn-danger" onclick="logout()">Salir</button>
         </div>
 
         <div id="view-reader" class="card">
             <h2>📜 Libro: Los Hechos</h2>
             <p class="reader-instruction">Toca los párrafos para marcar lectura.</p>
             <div id="reader-content"></div>
-            <button class="btn btn-primary" onclick="navTo('view-home')">Volver</button>
-        </div>
-
-        <div id="view-stats" class="card">
-            <h2>🏆 Ranking</h2>
-            <p>Puntos Capítulo 17: <b id="stat-current" style="color:gold">0</b></p>
-            <table class="stats-table"><tbody id="ranking-body"></tbody></table>
             <button class="btn btn-primary" onclick="navTo('view-home')">Volver</button>
         </div>
 
@@ -236,7 +187,7 @@
         </div>
     </div>
 
-    <nav class="nav-bar" id="main-nav">
+    <nav class="nav-bar" id="main-nav" style="display:flex;">
         <div class="nav-item active" onclick="navTo('view-home')"><span class="nav-icon">🏠</span></div>
         <div class="nav-item" onclick="navTo('view-puzzle')"><span class="nav-icon">🧩</span></div>
         <div class="nav-item" onclick="navTo('view-memory')"><span class="nav-icon">🧠</span></div>
@@ -248,9 +199,7 @@
     </nav>
 
     <script>
-        /* =========================================
-           DATOS SOLO CAPITULO 17
-           ========================================= */
+        /* DATOS CAPÍTULO 17 */
         const DATA = {
             title: "Cap 17: Heraldos del Evangelio",
             intro: "Pablo y Bernabé son apartados por el Espíritu Santo para su primera gira misionera. Viajan a Chipre, donde enfrentan oposición espiritual y ganan almas.",
@@ -288,102 +237,40 @@
         };
 
         /* SISTEMA */
-        let currentUser = "";
-        let agentData = {};
-        const CAP_ID = "17"; // ID FIJO
-        const STORAGE_KEY_PREFIX = "mh_v54_"; // NUEVA CLAVE LIMPIA
-        const PTS = 100;
-        let startTime=0, timerInterval, isTimerRunning=false;
+        let startTime=0, timerInterval;
         
-        // Variables Juegos
         let memCards=[], hasFlipped=false, lockBoard=false, firstCard, secondCard;
         let hangmanState={ word:"", guessed:[], lives:6 }, quizIdx=0, curWordSel=[], wordsFound=0, pieces=[], emptySlot={x:2,y:2};
 
         // AL CARGAR
         window.onload = function() {
-            // Chequear si hay sesion guardada reciente en la misma sesion de navegador (opcional)
+            loadChapterContent();
+            startTimer();
         };
-
-        function handleLogin() {
-            let name = document.getElementById('login-name').value.trim();
-            if(!name) return alert("¡Por favor escribe tu nombre!");
-            
-            currentUser = name;
-            
-            // Cargar datos
-            try {
-                let saved = localStorage.getItem(STORAGE_KEY_PREFIX + currentUser);
-                if (saved) {
-                    agentData = JSON.parse(saved);
-                } else {
-                    agentData = { totalScore: 0, caps: {} };
-                }
-            } catch(e) {
-                agentData = { totalScore: 0, caps: {} };
-            }
-
-            // Inicializar cap 17 si no existe
-            if(!agentData.caps) agentData.caps = {};
-            if(!agentData.caps[CAP_ID]) agentData.caps[CAP_ID] = { score:0, games:[], time: 0, read: [] };
-            
-            document.getElementById('player-display').innerText = "Agente: " + currentUser;
-            updateScoreUI(); loadChapterContent();
-            
-            // Cambio de vista
-            document.getElementById('view-login').classList.remove('active');
-            document.getElementById('view-home').classList.add('active');
-            document.getElementById('main-nav').style.display = 'flex';
-            
-            startTimer(); 
-        }
-
-        function logout() {
-            document.querySelectorAll('.card').forEach(function(c) { c.classList.remove('active'); });
-            document.getElementById('view-login').classList.add('active');
-            document.getElementById('main-nav').style.display = 'none';
-        }
 
         function loadChapterContent() {
             document.getElementById('home-title').innerText = DATA.title;
             document.getElementById('home-desc').innerText = DATA.intro;
+            
+            // Forzar carga de imagen
             let img = document.getElementById('home-img');
             img.src = DATA.img;
             img.onerror = function() { this.src = 'portada.jpg'; };
             
-            // Iniciar logica juegos
             initReader(); initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
         }
 
-        /* LECTOR */
+        /* LECTOR (Solo visual) */
         function initReader() {
             const container = document.getElementById('reader-content');
             container.innerHTML = "";
-            let readP = agentData.caps[CAP_ID].read || [];
-            DATA.text.forEach(function(txt, i) {
+            DATA.text.forEach(function(txt) {
                 let p = document.createElement('div');
                 p.className = 'reader-paragraph';
                 p.innerText = txt;
-                if(readP.includes(i)) p.classList.add('read');
-                p.onclick = function() { 
-                    p.classList.toggle('read'); 
-                    saveRead(i, p.classList.contains('read')); 
-                };
+                p.onclick = function() { p.classList.toggle('read'); };
                 container.appendChild(p);
             });
-        }
-        function saveRead(i, isRead) {
-            let c = agentData.caps[CAP_ID];
-            if(!c.read) c.read = [];
-            if(isRead) { 
-                if(!c.read.includes(i)) c.read.push(i); 
-            } else { 
-                c.read = c.read.filter(function(x) { return x !== i; }); 
-            }
-            saveData();
-        }
-
-        function saveData() {
-            localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData));
         }
 
         /* UTILS */
@@ -398,66 +285,19 @@
             if(a) { a.currentTime=0; a.play().catch(function(){}); }
         }
         
-        function updateScoreUI() { 
-            if(agentData.caps && agentData.caps[CAP_ID]) {
-                document.getElementById('score-display').innerText = agentData.caps[CAP_ID].score; 
-            }
-        }
-        
-        function saveProgress(gid) {
-            let c = agentData.caps[CAP_ID];
-            if(!c.games.includes(gid)) { 
-                c.games.push(gid); 
-                c.score += PTS; 
-                if(!agentData.totalScore) agentData.totalScore = 0;
-                agentData.totalScore += PTS; 
-                saveData(); 
-                updateScoreUI(); 
-                playSound('win'); 
-            }
+        function gameWin() {
+            playSound('win');
         }
         
         function startTimer() {
-            if(isTimerRunning) return;
-            isTimerRunning = true;
-            let saved = agentData.caps[CAP_ID].time || 0;
-            startTime = Date.now() - (saved * 1000);
+            startTime = Date.now();
             timerInterval = setInterval(function() {
                 let diff = Math.floor((Date.now() - startTime)/1000);
                 let m = Math.floor(diff/60).toString().padStart(2,'0');
                 let s = (diff%60).toString().padStart(2,'0');
                 let el = document.getElementById('global-timer');
                 if(el) el.innerText = m + ":" + s;
-                if(diff % 10 === 0) { 
-                    agentData.caps[CAP_ID].time = diff; 
-                    saveData();
-                }
             }, 1000);
-        }
-        
-        function showStats() {
-            document.getElementById('stat-current').innerText = agentData.caps[CAP_ID].score;
-            let tbody = document.getElementById('ranking-body');
-            tbody.innerHTML = "";
-            let us = [];
-            for(let i=0; i<localStorage.length; i++) {
-                let k = localStorage.key(i);
-                if(k.startsWith(STORAGE_KEY_PREFIX)) { 
-                    let n = k.replace(STORAGE_KEY_PREFIX, ''); 
-                    try {
-                        let d = JSON.parse(localStorage.getItem(k)); 
-                        if(d.caps && d.caps[CAP_ID]) {
-                            us.push({n:n, s:d.caps[CAP_ID].score}); 
-                        }
-                    } catch(e){}
-                }
-            }
-            us.sort(function(a,b) { return b.s - a.s; });
-            us.slice(0, 10).forEach(function(u, i) {
-                let cl = i===0 ? 'rank-1' : (i===1 ? 'rank-2' : (i===2 ? 'rank-3' : ''));
-                tbody.innerHTML += "<tr><td class='" + cl + "'>" + (i+1) + "</td><td class='" + cl + "'>" + u.n + "</td><td class='" + cl + "'>" + u.s + "</td></tr>";
-            });
-            navTo('view-stats');
         }
 
         /* JUEGOS */
@@ -492,8 +332,8 @@
                 secondCard.el.classList.add('matched');
                 resetBoard();
                 if(document.querySelectorAll('.mem-card.matched').length === memCards.length) {
-                    document.getElementById('memory-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
-                    saveProgress('memory');
+                    document.getElementById('memory-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO!</span>";
+                    gameWin();
                 }
             } else {
                 setTimeout(function() {
@@ -544,8 +384,8 @@
                 playSound('lose');
             }
             if(hangmanState.word.split('').every(function(c) { return hangmanState.guessed.includes(c); })) {
-                document.getElementById('hangman-feedback').innerHTML = "<span class='success-msg'>¡GANASTE! (+100)</span>";
-                saveProgress('hangman');
+                document.getElementById('hangman-feedback').innerHTML = "<span class='success-msg'>¡GANASTE!</span>";
+                gameWin();
             } else if(hangmanState.lives <= 0) {
                 document.getElementById('hangman-feedback').innerHTML = "<span class='error-msg'>Era: " + hangmanState.word + "</span>";
             }
@@ -558,8 +398,8 @@
             if(quizIdx >= DATA.quiz.length) {
                 document.getElementById('quiz-question').innerText = "¡Fin!";
                 document.getElementById('quiz-options').innerHTML = "";
-                document.getElementById('quiz-feedback').innerHTML = "<span class='success-msg'>¡MUY BIEN! (+100)</span>";
-                saveProgress('quiz');
+                document.getElementById('quiz-feedback').innerHTML = "<span class='success-msg'>¡MUY BIEN!</span>";
+                gameWin();
                 return;
             }
             let q = DATA.quiz[quizIdx];
@@ -620,8 +460,8 @@
                 }
             });
             if(err === 0) {
-                document.getElementById('cw-feedback').innerHTML = "<span class='success-msg'>¡PERFECTO! (+100)</span>";
-                saveProgress('words');
+                document.getElementById('cw-feedback').innerHTML = "<span class='success-msg'>¡PERFECTO!</span>";
+                gameWin();
             } else {
                 document.getElementById('cw-feedback').innerHTML = "<span class='error-msg'>Revelado</span>";
             }
@@ -630,8 +470,8 @@
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
             if(DATA.code && (val === DATA.code.sol || val.startsWith("APARTADME"))) {
-                document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>CORRECTO (+100)</span>";
-                saveProgress('code');
+                document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>CORRECTO</span>";
+                gameWin();
             } else {
                 document.getElementById('code-feedback').innerHTML = "<span class='error-msg'>ERROR</span>";
             }
@@ -704,8 +544,7 @@
             if(wordsFound === DATA.sopa.length) {
                 document.getElementById('sopa-game-area').style.display = 'none';
                 document.getElementById('word-success-container').style.display = 'block';
-                playSound('win');
-                saveProgress('sopa');
+                gameWin();
             }
         }
         function resetSelection() {
@@ -765,8 +604,8 @@
         
         function checkPuzzle() {
             if(pieces.every(function(p) { return p.x === p.cx && p.y === p.cy; })) {
-                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
-                saveProgress('puzzle');
+                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO!</span>";
+                gameWin();
             }
         }
     </script>
