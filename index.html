@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Misión: HECHOS | Cap 17</title>
     <style>
+        /* ESTILOS GENERALES */
         :root {
             --bg-color: #0f0f13;
             --card-bg: #1a1a20;
@@ -12,7 +13,6 @@
             --text-main: #ffffff;
             --success: #00ff9d;
             --error: #ff4f4f;
-            --highlight: #2d4638;
             --font-main: 'Segoe UI', Roboto, sans-serif;
         }
 
@@ -23,20 +23,22 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            background-image: url('portada.jpg'); 
+            /* IMAGEN DE FONDO CON RESPALDO */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
         }
         
-        /* HEADER SIMPLIFICADO */
+        /* HEADER */
         header { 
             background: rgba(26, 26, 32, 0.95); padding: 15px; border-bottom: 2px solid var(--accent); 
             position: sticky; top: 0; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
             display: flex; justify-content: space-between; align-items: center;
         }
-        .header-left h1 { margin: 0; font-size: 1.1rem; color: var(--accent); text-transform: uppercase; font-weight: 900; letter-spacing: 1px; }
-        .timer-box { font-family: monospace; font-size: 1.1rem; background: #000; padding: 4px 8px; border-radius: 4px; border: 1px solid #444; color: #fff; }
+        .header-left h1 { margin: 0; font-size: 1rem; color: var(--accent); text-transform: uppercase; font-weight: 900; }
+        .agent-name { font-size: 0.8rem; color: var(--success); font-weight: bold; }
+        .score-box { font-size: 1rem; font-weight: bold; color: gold; }
 
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
         
@@ -49,24 +51,30 @@
         @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
         h2 { border-left: 4px solid var(--accent); padding-left: 10px; margin-top: 0; font-size: 1.2rem; }
+        
         .img-box { width: 100%; border-radius: 10px; overflow: hidden; margin: 15px 0; border: 1px solid #444; background: #000; min-height: 200px; display: flex; align-items: center; justify-content: center;}
         .img-box img { width: 100%; display: block; object-fit: cover; }
 
         .btn { background: transparent; border: 2px solid var(--accent); color: var(--accent); padding: 12px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; display: block; text-align: center; text-decoration: none; box-sizing: border-box; }
         .btn:active { transform: scale(0.95); }
         .btn-primary { background: var(--accent); color: #000; }
+        .btn-danger { border-color: var(--error); color: var(--error); font-size: 0.8rem; margin-top: 5px; }
 
         input { background: #25252e; border: 1px solid #444; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 1rem; text-align: center; }
         input:focus { outline: none; border-color: var(--accent); }
 
-        /* LECTOR */
-        .reader-paragraph { padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 3px solid #444; cursor: pointer; background: rgba(255,255,255,0.02); line-height: 1.6; text-align: justify; }
-        .reader-paragraph.read { background: var(--highlight); border-left-color: var(--success); }
-        .reader-instruction { font-size: 0.8rem; color: #aaa; text-align: center; margin-bottom: 15px; font-style: italic; }
+        .mission-badge { background: linear-gradient(45deg, #111, #222); border: 1px solid var(--accent); border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center; }
+        .mission-label { color:#aaa; margin:0; font-size:0.8rem; letter-spacing: 2px; }
+        .mission-number { font-size: 4rem; font-weight: 900; color: var(--accent); line-height: 1; margin: 5px 0; }
+        .mission-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-top:10px; }
 
         /* JUEGOS */
+        .stats-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+        .stats-table td { padding: 8px; border-bottom: 1px solid #333; }
+        .highlight { color: var(--accent); font-weight: bold; }
+
         .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px; transition: transform 0.2s; }
+        .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px; transition: transform 0.3s; }
         .mem-card.flipped { background: var(--accent); color: black; font-weight: bold; border-color: white; transform: scale(1.05); }
         .mem-card.matched { background: var(--success); color: black; opacity: 0.5; pointer-events: none; }
 
@@ -105,27 +113,44 @@
     <header>
         <div class="header-left">
             <h1 id="app-title">Misión Hechos</h1>
+            <div class="agent-name" id="player-display">Agente: ...</div>
         </div>
         <div class="header-right">
-            <div class="timer-box" id="global-timer">00:00</div>
+            <div class="score-box" onclick="showStats()">⭐ <span id="score-display">0</span></div>
         </div>
     </header>
 
     <div class="container">
         
-        <div id="view-home" class="card active">
-            <h2 id="home-title"></h2>
-            <div class="img-box">
-                <img id="home-img" src="cap17.jpg" alt="Imagen Capitulo" onerror="this.src='portada.jpg'">
+        <div id="view-login" class="card active" style="text-align:center;">
+            <h2>🕵️ Archivos de Misión</h2>
+            <div class="mission-badge">
+                <p class="mission-label">MISIÓN SEMANAL</p>
+                <div class="mission-number">17</div>
+                <div class="mission-title">Heraldos del Evangelio</div>
             </div>
-            <p id="home-desc"></p>
-            <button class="btn btn-primary" onclick="initReader()">📖 Leer y Resaltar</button>
+            <p style="margin-bottom:5px; color:#aaa; margin-top:20px;">Nombre Agente:</p>
+            <input type="text" id="login-name" placeholder="Tu Nombre...">
+            <button class="btn btn-primary" onclick="handleLogin()">INICIAR MISIÓN</button>
         </div>
 
-        <div id="view-reader" class="card">
-            <h2>📜 Libro: Los Hechos</h2>
-            <p class="reader-instruction">Toca los párrafos para marcar lectura.</p>
-            <div id="reader-content"></div>
+        <div id="view-home" class="card">
+            <h2 id="home-title"></h2>
+            <div class="img-box">
+                <img id="home-img" src="cap17.jpg" alt="Imagen Capitulo" onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'}">
+            </div>
+            <p id="home-desc"></p>
+            
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.684#684" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO (WEB)</a>
+            
+            <button class="btn btn-primary" style="border-color:#555; color:#aaa; margin-top:10px;" onclick="showStats()">🏆 Ranking Agentes</button>
+            <button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button>
+        </div>
+
+        <div id="view-stats" class="card">
+            <h2>🏆 Ranking</h2>
+            <p>Puntos Capítulo 17: <b id="stat-current" style="color:gold">0</b></p>
+            <table class="stats-table"><tbody id="ranking-body"></tbody></table>
             <button class="btn btn-primary" onclick="navTo('view-home')">Volver</button>
         </div>
 
@@ -187,7 +212,7 @@
         </div>
     </div>
 
-    <nav class="nav-bar" id="main-nav" style="display:flex;">
+    <nav class="nav-bar" id="main-nav">
         <div class="nav-item active" onclick="navTo('view-home')"><span class="nav-icon">🏠</span></div>
         <div class="nav-item" onclick="navTo('view-puzzle')"><span class="nav-icon">🧩</span></div>
         <div class="nav-item" onclick="navTo('view-memory')"><span class="nav-icon">🧠</span></div>
@@ -199,24 +224,13 @@
     </nav>
 
     <script>
-        /* DATOS CAPÍTULO 17 */
+        /* =========================================
+           DATOS CAPÍTULO 17
+           ========================================= */
         const DATA = {
             title: "Cap 17: Heraldos del Evangelio",
             intro: "Pablo y Bernabé son apartados por el Espíritu Santo para su primera gira misionera. Viajan a Chipre, donde enfrentan oposición espiritual y ganan almas.",
             img: "cap17.jpg",
-            text: [
-                "Enviados así por el Espíritu Santo, Pablo y Bernabé, después de su ordenación por los hermanos de Antioquía, 'descendieron a Seleucia: y de allí navegaron a Cipro [Chipre]'. Así empezaron los apóstoles su primera jira misionera.",
-                "Chipre era uno de los lugares a los cuales los creyentes habían huído de Jerusalén por causa de la persecución que siguió a la muerte de Esteban. Bernabé mismo era 'natural de Cipro'; y ahora él y Pablo, acompañados por Juan Marcos, visitaron ese país isleño.",
-                "La madre de Marcos se había convertido a la religión cristiana, y su casa en Jerusalén era un asilo para los discípulos. Allí estaban siempre seguros de ser bienvenidos.",
-                "Al llegar a Salamina, los apóstoles 'anunciaban la palabra de Dios en las sinagogas de los Judíos.... Y habiendo atravesado toda la isla hasta Papho, hallaron un hombre mago, falso profeta, Judío, llamado Barjesús'.",
-                "El cual estaba con el procónsul Sergio Paulo, varón prudente. Este, llamando a Bernabé y a Saulo, deseaba oír la palabra de Dios. Mas les resistía Elimas el encantador, procurando apartar de la fe al procónsul.",
-                "Satanás no permite sin lucha que el reino de Dios se edifique en la tierra. Las huestes del mal están empeñadas en incesante guerra contra los agentes designados para la predicación del Evangelio.",
-                "Aunque penosamente acosado por Satanás, Pablo tuvo valor para increpar a aquel por quien el enemigo estaba trabajando. 'Lleno del Espíritu Santo', el apóstol, 'poniendo en él los ojos, dijo: Oh, lleno de todo engaño y de toda maldad, hijo del diablo... ¿no cesarás de trastornar los caminos rectos del Señor?'",
-                "Y luego cayeron en él obscuridad y tinieblas; y andando alrededor, buscaba quién le condujese por la mano. Entonces el procónsul, viendo lo que había sido hecho, creyó, maravillado de la doctrina del Señor.",
-                "El adivino había cerrado los ojos a las evidencias de la verdad evangélica; y el Señor, con justo enojo, cegó sus ojos naturales, privándolo de la luz del día. La ceguera no fué permanente, sino temporal, a fin de que le indujese a arrepentirse.",
-                "Pablo y sus compañeros continuaron viaje a Perga de Panfilia. Su camino era penoso; afrontaban adversidades y privaciones, y estaban acosados por peligros por doquiera.",
-                "Allí fué donde Marcos, abrumado por el temor y el desaliento, vaciló por un tiempo en su propósito de entregarse de todo corazón a la obra del Señor. No acostumbrado a las penurias, se desalentó y volvió a Jerusalén."
-            ],
             memoryPairs: [
                 {a:"Elimas", b:"Mago"}, {a:"Sergio", b:"Proconsul"}, {a:"Chipre", b:"Isla"},
                 {a:"Espíritu", b:"Santo"}, {a:"Ceguera", b:"Castigo"}, {a:"Juan", b:"Marcos"}
@@ -237,40 +251,53 @@
         };
 
         /* SISTEMA */
-        let startTime=0, timerInterval;
+        let currentUser = "";
+        let agentData = {};
+        const CAP_ID = "17"; 
+        const STORAGE_KEY_PREFIX = "mh_final_v57_"; // CLAVE UNICA
+        const PTS = 100;
         
+        // Variables Juegos
         let memCards=[], hasFlipped=false, lockBoard=false, firstCard, secondCard;
         let hangmanState={ word:"", guessed:[], lives:6 }, quizIdx=0, curWordSel=[], wordsFound=0, pieces=[], emptySlot={x:2,y:2};
 
-        // AL CARGAR
-        window.onload = function() {
-            loadChapterContent();
-            startTimer();
-        };
+        function handleLogin() {
+            let name = document.getElementById('login-name').value.trim();
+            if(!name) return alert("¡Escribe tu nombre!");
+            
+            currentUser = name;
+            // Cargar datos
+            try {
+                let saved = localStorage.getItem(STORAGE_KEY_PREFIX + currentUser);
+                agentData = saved ? JSON.parse(saved) : { totalScore: 0, caps: {} };
+                if(!agentData.caps) agentData.caps = {};
+                if(!agentData.caps[CAP_ID]) agentData.caps[CAP_ID] = { score:0, games:[] };
+            } catch(e) { agentData = { totalScore: 0, caps: {} }; }
+
+            document.getElementById('player-display').innerText = "Agente: " + currentUser;
+            updateScoreUI(); loadChapterContent();
+            
+            document.getElementById('view-login').classList.remove('active');
+            document.getElementById('view-home').classList.add('active');
+            document.getElementById('main-nav').style.display = 'flex';
+        }
+
+        function logout() {
+            document.querySelectorAll('.card').forEach(function(c) { c.classList.remove('active'); });
+            document.getElementById('view-login').classList.add('active');
+            document.getElementById('main-nav').style.display = 'none';
+        }
 
         function loadChapterContent() {
             document.getElementById('home-title').innerText = DATA.title;
             document.getElementById('home-desc').innerText = DATA.intro;
             
-            // Forzar carga de imagen
+            // Imagen con seguridad
             let img = document.getElementById('home-img');
             img.src = DATA.img;
-            img.onerror = function() { this.src = 'portada.jpg'; };
             
-            initReader(); initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
-        }
-
-        /* LECTOR (Solo visual) */
-        function initReader() {
-            const container = document.getElementById('reader-content');
-            container.innerHTML = "";
-            DATA.text.forEach(function(txt) {
-                let p = document.createElement('div');
-                p.className = 'reader-paragraph';
-                p.innerText = txt;
-                p.onclick = function() { p.classList.toggle('read'); };
-                container.appendChild(p);
-            });
+            // Iniciar Juegos
+            initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
         }
 
         /* UTILS */
@@ -285,19 +312,48 @@
             if(a) { a.currentTime=0; a.play().catch(function(){}); }
         }
         
-        function gameWin() {
-            playSound('win');
+        function updateScoreUI() { 
+            if(agentData.caps && agentData.caps[CAP_ID]) {
+                document.getElementById('score-display').innerText = agentData.caps[CAP_ID].score; 
+            }
         }
         
-        function startTimer() {
-            startTime = Date.now();
-            timerInterval = setInterval(function() {
-                let diff = Math.floor((Date.now() - startTime)/1000);
-                let m = Math.floor(diff/60).toString().padStart(2,'0');
-                let s = (diff%60).toString().padStart(2,'0');
-                let el = document.getElementById('global-timer');
-                if(el) el.innerText = m + ":" + s;
-            }, 1000);
+        function saveProgress(gid) {
+            let c = agentData.caps[CAP_ID];
+            if(!c.games.includes(gid)) { 
+                c.games.push(gid); 
+                c.score += PTS; 
+                if(!agentData.totalScore) agentData.totalScore = 0;
+                agentData.totalScore += PTS; 
+                localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData)); 
+                updateScoreUI(); 
+                playSound('win'); 
+            }
+        }
+        
+        function showStats() {
+            document.getElementById('stat-current').innerText = agentData.caps[CAP_ID].score;
+            let tbody = document.getElementById('ranking-body');
+            tbody.innerHTML = "";
+            let us = [];
+            for(let i=0; i<localStorage.length; i++) {
+                let k = localStorage.key(i);
+                if(k.startsWith(STORAGE_KEY_PREFIX)) { 
+                    let n = k.replace(STORAGE_KEY_PREFIX, ''); 
+                    try {
+                        let d = JSON.parse(localStorage.getItem(k)); 
+                        if(d.caps && d.caps[CAP_ID]) {
+                            us.push({n:n, s:d.caps[CAP_ID].score}); 
+                        }
+                    } catch(e){}
+                }
+            }
+            us.sort(function(a,b) { return b.s - a.s; });
+            us.slice(0, 10).forEach(function(u, i) {
+                let cl = i===0 ? 'highlight' : '';
+                tbody.innerHTML += "<tr><td class='" + cl + "'>" + (i+1) + "</td><td class='" + cl + "'>" + u.n + "</td><td class='" + cl + "'>" + u.s + "</td></tr>";
+            });
+            navTo('view-stats');
         }
 
         /* JUEGOS */
@@ -332,8 +388,8 @@
                 secondCard.el.classList.add('matched');
                 resetBoard();
                 if(document.querySelectorAll('.mem-card.matched').length === memCards.length) {
-                    document.getElementById('memory-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO!</span>";
-                    gameWin();
+                    document.getElementById('memory-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
+                    saveProgress('memory');
                 }
             } else {
                 setTimeout(function() {
@@ -384,8 +440,8 @@
                 playSound('lose');
             }
             if(hangmanState.word.split('').every(function(c) { return hangmanState.guessed.includes(c); })) {
-                document.getElementById('hangman-feedback').innerHTML = "<span class='success-msg'>¡GANASTE!</span>";
-                gameWin();
+                document.getElementById('hangman-feedback').innerHTML = "<span class='success-msg'>¡GANASTE! (+100)</span>";
+                saveProgress('hangman');
             } else if(hangmanState.lives <= 0) {
                 document.getElementById('hangman-feedback').innerHTML = "<span class='error-msg'>Era: " + hangmanState.word + "</span>";
             }
@@ -398,8 +454,8 @@
             if(quizIdx >= DATA.quiz.length) {
                 document.getElementById('quiz-question').innerText = "¡Fin!";
                 document.getElementById('quiz-options').innerHTML = "";
-                document.getElementById('quiz-feedback').innerHTML = "<span class='success-msg'>¡MUY BIEN!</span>";
-                gameWin();
+                document.getElementById('quiz-feedback').innerHTML = "<span class='success-msg'>¡MUY BIEN! (+100)</span>";
+                saveProgress('quiz');
                 return;
             }
             let q = DATA.quiz[quizIdx];
@@ -460,8 +516,8 @@
                 }
             });
             if(err === 0) {
-                document.getElementById('cw-feedback').innerHTML = "<span class='success-msg'>¡PERFECTO!</span>";
-                gameWin();
+                document.getElementById('cw-feedback').innerHTML = "<span class='success-msg'>¡PERFECTO! (+100)</span>";
+                saveProgress('words');
             } else {
                 document.getElementById('cw-feedback').innerHTML = "<span class='error-msg'>Revelado</span>";
             }
@@ -470,8 +526,8 @@
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
             if(DATA.code && (val === DATA.code.sol || val.startsWith("APARTADME"))) {
-                document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>CORRECTO</span>";
-                gameWin();
+                document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>CORRECTO (+100)</span>";
+                saveProgress('code');
             } else {
                 document.getElementById('code-feedback').innerHTML = "<span class='error-msg'>ERROR</span>";
             }
@@ -544,7 +600,8 @@
             if(wordsFound === DATA.sopa.length) {
                 document.getElementById('sopa-game-area').style.display = 'none';
                 document.getElementById('word-success-container').style.display = 'block';
-                gameWin();
+                playSound('win');
+                saveProgress('sopa');
             }
         }
         function resetSelection() {
@@ -556,7 +613,9 @@
             const c = document.getElementById('puzzle-container');
             c.innerHTML = '';
             pieces = [];
-            let bgImage = DATA.img;
+            // FALLBACK IMAGEN
+            let bgImage = "cap17.jpg";
+            
             for(let y=0; y<3; y++) {
                 for(let x=0; x<3; x++) {
                     if(x===2 && y===2) continue;
@@ -564,6 +623,7 @@
                     p.className = 'puzzle-piece';
                     p.style.left = (x*100) + 'px';
                     p.style.top = (y*100) + 'px';
+                    // Doble fondo para seguridad
                     p.style.backgroundImage = "url('" + bgImage + "'), url('portada.jpg')";
                     p.style.backgroundPosition = "-" + (x*100) + "px -" + (y*100) + "px";
                     p.x = x; p.y = y; p.cx = x; p.cy = y;
@@ -604,8 +664,8 @@
         
         function checkPuzzle() {
             if(pieces.every(function(p) { return p.x === p.cx && p.y === p.cy; })) {
-                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO!</span>";
-                gameWin();
+                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
+                saveProgress('puzzle');
             }
         }
     </script>
