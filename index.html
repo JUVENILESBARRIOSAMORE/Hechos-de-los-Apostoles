@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Misión: HECHOS | Cap 17</title>
     <style>
-        /* ESTILOS VISUALES */
         :root {
             --bg-color: #0f0f13;
             --card-bg: #1a1a20;
@@ -24,12 +23,14 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
+            /* PORTADA DE FONDO */
             background-image: url('portada.jpg'); 
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
         }
         
+        /* HEADER */
         header { 
             background: rgba(26, 26, 32, 0.95); padding: 10px 15px; border-bottom: 2px solid var(--accent); 
             position: sticky; top: 0; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
@@ -63,33 +64,33 @@
         input { background: #25252e; border: 1px solid #444; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 1rem; text-align: center; }
         input:focus { outline: none; border-color: var(--accent); }
 
-        .mission-badge { background: linear-gradient(45deg, #111, #222); border: 1px solid var(--accent); border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center; }
-        .mission-number { font-size: 4rem; font-weight: 900; color: var(--accent); line-height: 1; margin: 0; }
-        .mission-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; color: #fff; }
+        /* DISEÑO DE MISIÓN ACTUAL (Sin Selector) */
+        .mission-badge {
+            background: linear-gradient(45deg, #111, #222);
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 174, 0, 0.2);
+        }
+        .mission-label { color:#aaa; margin:0; font-size:0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        .mission-number { font-size: 3.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin: 5px 0; }
+        .mission-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; border-top: 1px solid #444; padding-top: 10px; }
 
+        /* LECTOR */
         .reader-paragraph { padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 3px solid #444; cursor: pointer; background: rgba(255,255,255,0.02); line-height: 1.6; text-align: justify; }
         .reader-paragraph.read { background: var(--highlight); border-left-color: var(--success); }
         .reader-instruction { font-size: 0.8rem; color: #aaa; text-align: center; margin-bottom: 15px; font-style: italic; }
 
+        /* JUEGOS */
         .stats-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
         .stats-table td { padding: 8px; border-bottom: 1px solid #333; }
         .highlight { color: var(--accent); font-weight: bold; }
 
         .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .mem-card { 
-            aspect-ratio: 1; background: #333; border: 2px solid #555; 
-            display: flex; align-items: center; justify-content: center; text-align: center; 
-            font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px; 
-            transition: transform 0.2s, background-color 0.2s; 
-        }
-        /* CORRECCIÓN AQUI: Se eliminó rotateY(180deg) para que el texto no salga al revés */
-        .mem-card.flipped { 
-            background: var(--accent); 
-            color: black; 
-            font-weight: bold; 
-            border-color: white; 
-            transform: scale(1.05); /* Efecto de agrandar en lugar de rotar */
-        }
+        .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px; transition: transform 0.2s; }
+        .mem-card.flipped { background: var(--accent); color: black; font-weight: bold; border-color: white; transform: scale(1.05); }
         .mem-card.matched { background: var(--success); color: black; opacity: 0.5; pointer-events: none; }
 
         #hangman-word { font-family: monospace; font-size: 1.5rem; letter-spacing: 3px; text-align: center; margin: 20px 0; color: var(--success); word-break: break-all;}
@@ -136,15 +137,19 @@
     </header>
 
     <div class="container">
+        
         <div id="view-login" class="card active" style="text-align:center;">
             <h2>🕵️ Archivos de Misión</h2>
+            
             <div class="mission-badge">
-                <p style="color:#aaa; margin:0; font-size:0.8rem;">MISIÓN SEMANAL</p>
+                <p class="mission-label">CAPÍTULO ACTUAL</p>
                 <div class="mission-number">17</div>
                 <div class="mission-title">Heraldos del Evangelio</div>
             </div>
+            
             <p style="margin-bottom:5px; color:#aaa; margin-top:20px;">Nombre Agente:</p>
             <input type="text" id="login-name" placeholder="Tu Nombre...">
+            
             <button class="btn btn-primary" onclick="handleLogin()">INICIAR MISIÓN</button>
         </div>
 
@@ -244,7 +249,7 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 17
+           DATOS SOLO CAPITULO 17
            ========================================= */
         const DATA = {
             title: "Cap 17: Heraldos del Evangelio",
@@ -285,47 +290,51 @@
         /* SISTEMA */
         let currentUser = "";
         let agentData = {};
-        const CAP_ID = "17"; 
-        const STORAGE_KEY_PREFIX = "mh_final_v53_"; // NUEVA KEY PARA LIMPIAR ERRORES ANTERIORES
+        const CAP_ID = "17"; // ID FIJO
+        const STORAGE_KEY_PREFIX = "mh_v54_"; // NUEVA CLAVE LIMPIA
         const PTS = 100;
         let startTime=0, timerInterval, isTimerRunning=false;
         
+        // Variables Juegos
         let memCards=[], hasFlipped=false, lockBoard=false, firstCard, secondCard;
         let hangmanState={ word:"", guessed:[], lives:6 }, quizIdx=0, curWordSel=[], wordsFound=0, pieces=[], emptySlot={x:2,y:2};
 
+        // AL CARGAR
+        window.onload = function() {
+            // Chequear si hay sesion guardada reciente en la misma sesion de navegador (opcional)
+        };
+
         function handleLogin() {
+            let name = document.getElementById('login-name').value.trim();
+            if(!name) return alert("¡Por favor escribe tu nombre!");
+            
+            currentUser = name;
+            
+            // Cargar datos
             try {
-                let name = document.getElementById('login-name').value.trim();
-                if(!name) return alert("¡Escribe tu nombre!");
-                
-                currentUser = name;
-                // Carga de datos con la nueva key limpia
                 let saved = localStorage.getItem(STORAGE_KEY_PREFIX + currentUser);
-                
                 if (saved) {
-                    try {
-                        agentData = JSON.parse(saved);
-                    } catch (e) {
-                        agentData = { totalScore: 0, caps: {} }; // Reset si esta corrupto
-                    }
+                    agentData = JSON.parse(saved);
                 } else {
                     agentData = { totalScore: 0, caps: {} };
                 }
-
-                // Asegurar estructura
-                if(!agentData.caps) agentData.caps = {};
-                if(!agentData.caps[CAP_ID]) agentData.caps[CAP_ID] = { score:0, games:[], time: 0, read: [] };
-                
-                document.getElementById('player-display').innerText = "Agente: " + currentUser;
-                updateScoreUI(); loadChapterContent();
-                
-                document.getElementById('view-login').classList.remove('active');
-                document.getElementById('view-home').classList.add('active');
-                document.getElementById('main-nav').style.display = 'flex';
-                startTimer();
-            } catch (err) {
-                alert("Error al iniciar: " + err.message);
+            } catch(e) {
+                agentData = { totalScore: 0, caps: {} };
             }
+
+            // Inicializar cap 17 si no existe
+            if(!agentData.caps) agentData.caps = {};
+            if(!agentData.caps[CAP_ID]) agentData.caps[CAP_ID] = { score:0, games:[], time: 0, read: [] };
+            
+            document.getElementById('player-display').innerText = "Agente: " + currentUser;
+            updateScoreUI(); loadChapterContent();
+            
+            // Cambio de vista
+            document.getElementById('view-login').classList.remove('active');
+            document.getElementById('view-home').classList.add('active');
+            document.getElementById('main-nav').style.display = 'flex';
+            
+            startTimer(); 
         }
 
         function logout() {
@@ -337,11 +346,11 @@
         function loadChapterContent() {
             document.getElementById('home-title').innerText = DATA.title;
             document.getElementById('home-desc').innerText = DATA.intro;
-            // Forzar carga de imagen
             let img = document.getElementById('home-img');
             img.src = DATA.img;
             img.onerror = function() { this.src = 'portada.jpg'; };
             
+            // Iniciar logica juegos
             initReader(); initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
         }
 
@@ -370,6 +379,10 @@
             } else { 
                 c.read = c.read.filter(function(x) { return x !== i; }); 
             }
+            saveData();
+        }
+
+        function saveData() {
             localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData));
         }
 
@@ -398,7 +411,7 @@
                 c.score += PTS; 
                 if(!agentData.totalScore) agentData.totalScore = 0;
                 agentData.totalScore += PTS; 
-                localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData)); 
+                saveData(); 
                 updateScoreUI(); 
                 playSound('win'); 
             }
@@ -417,7 +430,7 @@
                 if(el) el.innerText = m + ":" + s;
                 if(diff % 10 === 0) { 
                     agentData.caps[CAP_ID].time = diff; 
-                    localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData)); 
+                    saveData();
                 }
             }, 1000);
         }
