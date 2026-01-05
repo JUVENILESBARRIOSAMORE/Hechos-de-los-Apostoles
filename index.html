@@ -23,6 +23,7 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
+            /* Fondo de respaldo online por si falta la imagen local */
             background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
             background-size: cover; 
             background-attachment: fixed; 
@@ -35,7 +36,7 @@
             position: sticky; top: 0; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
             display: flex; justify-content: space-between; align-items: center;
         }
-        .header-left h1 { margin: 0; font-size: 1.2rem; color: var(--accent); text-transform: uppercase; font-weight: 900; }
+        .header-left h1 { margin: 0; font-size: 1.1rem; color: var(--accent); text-transform: uppercase; font-weight: 900; }
         .score-box { font-size: 1rem; font-weight: bold; color: gold; }
 
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
@@ -58,7 +59,7 @@
         .btn:active { transform: scale(0.95); }
         .btn-primary { background: var(--accent); color: #000; }
         
-        /* ESTILO ESPECIFICO PARA EL ENLACE */
+        /* ESTILO PARA ENLACE */
         a.btn { text-decoration: none; display: block; line-height: 1.2; }
 
         input { background: #25252e; border: 1px solid #444; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 1rem; text-align: center; }
@@ -213,6 +214,7 @@
             title: "Cap 17: Heraldos del Evangelio",
             intro: "Pablo y Bernabé son apartados por el Espíritu Santo para su primera gira misionera. Viajan a Chipre, donde enfrentan oposición espiritual y ganan almas.",
             img: "cap17.jpg",
+            link: "https://m.egwwritings.org/es/book/198.966", // ENLACE CORREGIDO
             memoryPairs: [
                 {a:"Elimas", b:"Mago"}, {a:"Sergio", b:"Proconsul"}, {a:"Chipre", b:"Isla"},
                 {a:"Espíritu", b:"Santo"}, {a:"Ceguera", b:"Castigo"}, {a:"Juan", b:"Marcos"}
@@ -248,8 +250,12 @@
             document.getElementById('home-title').innerText = DATA.title;
             document.getElementById('home-desc').innerText = DATA.intro;
             
+            // Imagen
             let img = document.getElementById('home-img');
             img.src = DATA.img;
+            
+            // Link
+            document.getElementById('read-btn').href = DATA.link;
             
             // Iniciar logicas
             initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
@@ -577,7 +583,7 @@
         
         function checkPuzzle() {
             if(pieces.every(function(p) { return p.x === p.cx && p.y === p.cy; })) {
-                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO!</span>";
+                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
                 gameWin();
             }
         }
