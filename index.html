@@ -127,7 +127,11 @@
             <h2>🕵️ Archivos de Misión</h2>
             
             <p style="margin-bottom:5px; color:#aaa;">Selecciona el Capítulo:</p>
-            <select id="chapter-select"></select>
+            <select id="chapter-select">
+                <option value="17" selected>Cap 17: Heraldos del Evangelio</option>
+                <option value="22">Cap 22: Tesalónica</option>
+                <option value="16">Cap 16: El Evangelio en Antioquía</option>
+            </select>
 
             <p style="margin-bottom:5px; color:#aaa; margin-top:20px;">Nombre Agente:</p>
             <input type="text" id="login-name" placeholder="Tu Nombre...">
@@ -239,15 +243,37 @@
 
     <script>
         /* =========================================
-           📚 BASE DE DATOS: AGREGA AQUÍ TUS CAPÍTULOS
+           📚 BASE DE DATOS MULTI-CAPÍTULO
            ========================================= */
         const CHAPTERS = {
-            // El orden aquí determina el orden en la lista
-            // CAPITULO 22 (Ejemplo)
+            "17": {
+                title: "Cap 17: Heraldos del Evangelio",
+                intro: "Pablo y Bernabé son apartados por el Espíritu Santo. Viajan a Chipre y enfrentan al mago Elimas.",
+                img: "cap17.jpg", // Asegúrate de tener este archivo
+                link: "https://m.egwwritings.org/es/book/198.966",
+                memoryPairs: [
+                    {a:"Elimas", b:"Mago"}, {a:"Sergio", b:"Proconsul"}, {a:"Chipre", b:"Isla"},
+                    {a:"Espíritu", b:"Santo"}, {a:"Ceguera", b:"Castigo"}, {a:"Juan", b:"Marcos"}
+                ],
+                hangman: { word: "CEGUERA", hint: "El castigo que recibió el mago..." },
+                quiz: [
+                    { q: "¿Quién era Sergio Paulo?", opts: ["Mago","Procónsul","Sacerdote"], c: 1 },
+                    { q: "¿Quién se opuso a Pablo?", opts: ["Elimas","Juan","Bernabé"], c: 0 },
+                    { q: "¿Qué ciudad de Chipre visitaron?", opts: ["Pafos","Roma","Atenas"], c: 0 }
+                ],
+                words: [
+                    {p:"Lugar de partida", w:"SELEUCIA"}, 
+                    {p:"Primera ciudad en Chipre", w:"SALAMINA"}, 
+                    {p:"Donde estaba el procónsul", w:"PAFOS"}
+                ],
+                code: { hint: "1-16-1-18-20-1-4-13-5", sol: "APARTADME" }, // Apartadme
+                sopa: ["CHIPRE","ELIMAS","SERGIO","PAFOS","PABLO","MAGO"]
+            },
+
             "22": {
                 title: "Cap 22: Tesalónica",
                 intro: "Pablo y Silas predican en la sinagoga. Muchos creen, pero se desata un alboroto contra Jasón.",
-                img: "cap22.jpg", 
+                img: "cap22.jpg", // Busca esta imagen localmente
                 link: "https://m.egwwritings.org/es/book/198.684#684",
                 memoryPairs: [
                     {a:"Jasón", b:"Hospedador"}, {a:"Tesalónica", b:"Ciudad"}, {a:"César", b:"Rey"},
@@ -267,37 +293,11 @@
                 code: { hint: "21-19-1-20-16-19-14-1-14", sol: "TRASTORNAN" },
                 sopa: ["PABLO","SILAS","JASON","GRIEGOS","NOCHE","BEREA"]
             },
-
-            // CAPITULO 17
-            "17": {
-                title: "Cap 17: Heraldos del Evangelio",
-                intro: "Pablo y Bernabé son apartados por el Espíritu Santo. Viajan a Chipre y enfrentan al mago Elimas.",
-                img: "cap17.jpg",
-                link: "https://m.egwwritings.org/es/book/198.966",
-                memoryPairs: [
-                    {a:"Elimas", b:"Mago"}, {a:"Sergio", b:"Proconsul"}, {a:"Chipre", b:"Isla"},
-                    {a:"Espíritu", b:"Santo"}, {a:"Ceguera", b:"Castigo"}, {a:"Juan", b:"Marcos"}
-                ],
-                hangman: { word: "CEGUERA", hint: "El castigo que recibió el mago..." },
-                quiz: [
-                    { q: "¿Quién era Sergio Paulo?", opts: ["Mago","Procónsul","Sacerdote"], c: 1 },
-                    { q: "¿Quién se opuso a Pablo?", opts: ["Elimas","Juan","Bernabé"], c: 0 },
-                    { q: "¿Qué ciudad de Chipre visitaron?", opts: ["Pafos","Roma","Atenas"], c: 0 }
-                ],
-                words: [
-                    {p:"Lugar de partida", w:"SELEUCIA"}, 
-                    {p:"Primera ciudad en Chipre", w:"SALAMINA"}, 
-                    {p:"Donde estaba el procónsul", w:"PAFOS"}
-                ],
-                code: { hint: "1-16-1-18-20-1-4-13-5", sol: "APARTADME" },
-                sopa: ["CHIPRE","ELIMAS","SERGIO","PAFOS","PABLO","MAGO"]
-            },
             
-            // CAPITULO 16
             "16": {
                 title: "Cap 16: El Evangelio en Antioquía",
                 intro: "Los discípulos llegan a Antioquía. Bernabé busca a Pablo y reciben el nombre de Cristianos.",
-                img: "cap16.jpg", // Asegurate de nombrar la imagen cap16.jpg tambien
+                img: "portada.jpg",
                 link: "https://m.egwwritings.org/es/book/198.920",
                 memoryPairs: [
                     {a:"Antioquía", b:"Capital"}, {a:"Bernabé", b:"Consolación"}, {a:"Pablo", b:"Tarso"},
@@ -318,8 +318,8 @@
         /* =========================================
            ⚙️ SISTEMA
            ========================================= */
-        let currentCapID = ""; 
-        let currentData = null; 
+        let currentCapID = "17"; 
+        let currentData = CHAPTERS["17"]; // Forzar 17
         let currentUser = "";
         let agentData = { totalScore: 0, caps: {} };
         const PTS = 100;
@@ -333,25 +333,6 @@
         let quizIdx=0;
         let curWordSel=[], wordsFound=0;
         let pieces = []; let emptySlot = { x: 2, y: 2 };
-
-        // INIT
-        document.addEventListener('DOMContentLoaded', () => {
-            initChapterSelect();
-        });
-
-        function initChapterSelect() {
-            const select = document.getElementById('chapter-select');
-            select.innerHTML = "";
-            // Genera la lista automáticamente desde la base de datos
-            Object.keys(CHAPTERS).forEach(key => {
-                let opt = document.createElement('option');
-                opt.value = key;
-                opt.innerText = CHAPTERS[key].title;
-                select.appendChild(opt);
-            });
-            // Por defecto selecciona el primero de la lista (Cap 22 en este caso)
-            if(select.options.length > 0) select.selectedIndex = 0;
-        }
 
         function handleLogin() {
             let name = document.getElementById('login-name').value.trim();
@@ -379,7 +360,9 @@
             document.getElementById('home-title').innerText = currentData.title;
             document.getElementById('home-desc').innerText = currentData.intro;
             let imgEl = document.getElementById('home-img');
-            imgEl.src = currentData.img; // Carga la imagen definida en el objeto
+            
+            // Logica de Imagen: Intenta cargar la especifica, sino usa el fallback del HTML
+            imgEl.src = currentData.img;
             
             document.getElementById('egw-link').href = currentData.link;
             initMemory();
@@ -478,13 +461,16 @@
         // PUZZLE
         function initPuzzle() {
             const c = document.getElementById('puzzle-container'); c.innerHTML = ''; pieces = [];
+            
+            // Si la imagen falla (es un mapa fallback), usamos una imagen generica o color para el puzzle
             let bgImage = currentData.img;
+            
             for(let y=0; y<3; y++) {
                 for(let x=0; x<3; x++) {
                     if(x===2 && y===2) continue;
                     let p = document.createElement('div'); p.className = 'puzzle-piece';
                     p.style.left = (x*100) + 'px'; p.style.top = (y*100) + 'px';
-                    p.style.backgroundImage = `url('${bgImage}'), url('portada.jpg')`; 
+                    p.style.backgroundImage = `url('${bgImage}'), url('portada.jpg')`; // Fallback en CSS
                     p.style.backgroundPosition = `-${x*100}px -${y*100}px`;
                     p.x = x; p.y = y; p.correctX = x; p.correctY = y;
                     p.onclick = () => movePiece(p);
@@ -656,6 +642,7 @@
         function initCode() { document.getElementById('code-clue').innerText = currentData.code.hint; }
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
+            // Validacion mas flexible
             if(val === currentData.code.sol || val.startsWith(currentData.code.sol.split(' ')[0])) {
                 document.getElementById('code-feedback').innerHTML="<span class='success-msg'>CORRECTO (+100)</span>";
                 saveProgress('code');
