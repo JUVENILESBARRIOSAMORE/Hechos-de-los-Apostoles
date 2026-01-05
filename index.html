@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Misión: HECHOS | Cap 17</title>
     <style>
+        /* ESTILOS VISUALES */
         :root {
             --bg-color: #0f0f13;
             --card-bg: #1a1a20;
@@ -17,13 +18,18 @@
         }
 
         body { 
-            background-color: var(--bg-color); color: var(--text-main); font-family: var(--font-main); 
-            margin: 0; padding-bottom: 90px; user-select: none;
-            /* IMAGEN DE FONDO (PORTADA) */
-            background-image: url('portada.jpg'); background-size: cover; background-attachment: fixed; background-position: center;
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            font-family: var(--font-main); 
+            margin: 0; 
+            padding-bottom: 90px; 
+            user-select: none;
+            background-image: url('portada.jpg'); 
+            background-size: cover; 
+            background-attachment: fixed; 
+            background-position: center;
         }
         
-        /* HEADER */
         header { 
             background: rgba(26, 26, 32, 0.95); padding: 10px 15px; border-bottom: 2px solid var(--accent); 
             position: sticky; top: 0; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
@@ -57,58 +63,47 @@
         input { background: #25252e; border: 1px solid #444; color: white; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 1rem; text-align: center; }
         input:focus { outline: none; border-color: var(--accent); }
 
-        /* BADGE DE MISION */
-        .mission-badge {
-            background: linear-gradient(45deg, #222, #2a2a2a);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            box-shadow: 0 0 15px rgba(255, 174, 0, 0.15);
-        }
-        .mission-number { font-size: 3.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin: 5px 0; }
-        .mission-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; color: #fff; margin-bottom: 5px; }
+        .mission-badge { background: linear-gradient(45deg, #111, #222); border: 1px solid var(--accent); border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center; }
+        .mission-number { font-size: 4rem; font-weight: 900; color: var(--accent); line-height: 1; margin: 0; }
+        .mission-title { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; color: #fff; }
 
-        /* LECTOR */
-        .reader-paragraph { padding: 15px; margin-bottom: 15px; border-radius: 8px; border-left: 4px solid #444; cursor: pointer; background: rgba(255,255,255,0.03); line-height: 1.6; text-align: justify; font-size: 1.05rem; }
-        .reader-paragraph.read { background: var(--highlight); border-left-color: var(--success); color: #fff; }
-        .reader-instruction { font-size: 0.9rem; color: #aaa; text-align: center; margin-bottom: 20px; font-style: italic; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .reader-paragraph { padding: 12px; margin-bottom: 10px; border-radius: 8px; border-left: 3px solid #444; cursor: pointer; background: rgba(255,255,255,0.02); line-height: 1.6; text-align: justify; }
+        .reader-paragraph.read { background: var(--highlight); border-left-color: var(--success); }
+        .reader-instruction { font-size: 0.8rem; color: #aaa; text-align: center; margin-bottom: 15px; font-style: italic; }
 
-        /* JUEGOS */
         .stats-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
-        .stats-table td { padding: 10px; border-bottom: 1px solid #333; }
+        .stats-table td { padding: 8px; border-bottom: 1px solid #333; }
         .highlight { color: var(--accent); font-weight: bold; }
-        .rank-1 { color: gold; } .rank-2 { color: silver; } .rank-3 { color: #cd7f32; }
 
         .memory-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.7rem; padding: 2px; cursor: pointer; border-radius: 6px; transition: transform 0.3s; user-select: none; }
+        .mem-card { aspect-ratio: 1; background: #333; border: 2px solid #555; display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.65rem; padding: 2px; cursor: pointer; border-radius: 6px; transition: transform 0.3s; }
         .mem-card.flipped { background: var(--accent); color: black; font-weight: bold; border-color: white; transform: rotateY(180deg); }
         .mem-card.matched { background: var(--success); color: black; opacity: 0.5; pointer-events: none; }
 
-        #hangman-word { font-family: monospace; font-size: 1.8rem; letter-spacing: 4px; text-align: center; margin: 20px 0; color: var(--success); }
+        #hangman-word { font-family: monospace; font-size: 1.5rem; letter-spacing: 3px; text-align: center; margin: 20px 0; color: var(--success); word-break: break-all;}
         .keyboard { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-        .key-btn { background: #333; padding: 10px 0; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #444; font-weight: bold; }
+        .key-btn { background: #333; padding: 8px 0; text-align: center; border-radius: 4px; cursor: pointer; border: 1px solid #444; }
         .key-btn.correct { background: var(--success); color: black; }
         .key-btn.wrong { background: var(--error); opacity: 0.3; }
 
-        #puzzle-container { position: relative; width: 300px; height: 300px; margin: 0 auto; border: 2px solid var(--accent); overflow: hidden; background: #222; border-radius: 8px; }
+        #puzzle-container { position: relative; width: 300px; height: 300px; margin: 0 auto; border: 2px solid var(--accent); overflow: hidden; background: #222; }
         .puzzle-piece { position: absolute; width: 100px; height: 100px; border: 1px solid #000; box-sizing: border-box; transition: all 0.2s ease; cursor: pointer; background-size: 300px 300px; }
 
         .word-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; margin-top: 15px; }
-        .cell { aspect-ratio: 1; background: #25252e; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 3px; font-size: 0.85rem; user-select: none; }
+        .cell { aspect-ratio: 1; background: #25252e; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 3px; font-size: 0.8rem; }
         .cell.selected { background: var(--accent); color: black; }
         .cell.found { background: var(--success); color: black; }
 
         .cw-inputs { display: flex; gap: 3px; margin-top: 5px; }
-        .cw-cell-input { width: 25px; height: 30px; padding: 0; background: #222; border: 1px solid #555; color: white; text-align: center; text-transform: uppercase; font-weight: bold; }
+        .cw-cell-input { width: 25px; height: 30px; padding: 0; background: #222; border: 1px solid #555; color: white; text-align: center; text-transform: uppercase; }
 
-        .nav-bar { display: none; justify-content: start; gap: 15px; background: #15151a; padding: 15px; position: fixed; bottom: 0; width: 100%; border-top: 1px solid #333; z-index: 1000; overflow-x: auto; white-space: nowrap; }
-        .nav-item { color: #666; font-size: 0.7rem; text-align: center; cursor: pointer; min-width: 50px; display: inline-block; }
+        .nav-bar { display: none; justify-content: start; gap: 10px; background: #15151a; padding: 10px; position: fixed; bottom: 0; width: 100%; border-top: 1px solid #333; z-index: 1000; overflow-x: auto; white-space: nowrap; }
+        .nav-item { color: #666; font-size: 0.65rem; text-align: center; cursor: pointer; min-width: 60px; display: inline-block; }
         .nav-item.active { color: var(--accent); transform: translateY(-3px); }
-        .nav-icon { display: block; font-size: 1.5rem; margin-bottom: 3px; }
+        .nav-icon { display: block; font-size: 1.4rem; }
         
-        .feedback { text-align: center; margin-top: 15px; font-weight: bold; padding: 10px; border-radius: 5px; }
-        .success-msg { color: #000; background: var(--success); } .error-msg { color: #fff; background: var(--error); }
+        .feedback { text-align: center; margin-top: 10px; font-weight: bold; padding: 10px; }
+        .success-msg { color: var(--success); } .error-msg { color: var(--error); }
     </style>
 </head>
 <body>
@@ -129,20 +124,16 @@
     </header>
 
     <div class="container">
-        
         <div id="view-login" class="card active" style="text-align:center;">
             <h2>🕵️ Archivos de Misión</h2>
-            
             <div class="mission-badge">
-                <p style="color:#aaa; margin:0; font-size:0.8rem; text-transform: uppercase;">Misión Actual</p>
+                <p style="color:#aaa; margin:0; font-size:0.8rem;">MISIÓN SEMANAL</p>
                 <div class="mission-number">17</div>
                 <div class="mission-title">Heraldos del Evangelio</div>
             </div>
-            
-            <p style="margin-bottom:5px; color:#aaa; margin-top:30px;">Identificación de Agente:</p>
-            <input type="text" id="login-name" placeholder="Tu Nombre o Apodo...">
-            
-            <button class="btn btn-primary" onclick="handleLogin()">INICIAR OPERACIÓN</button>
+            <p style="margin-bottom:5px; color:#aaa; margin-top:20px;">Nombre Agente:</p>
+            <input type="text" id="login-name" placeholder="Tu Nombre...">
+            <button class="btn btn-primary" onclick="handleLogin()">INICIAR MISIÓN</button>
         </div>
 
         <div id="view-home" class="card">
@@ -152,37 +143,33 @@
             </div>
             <p id="home-desc"></p>
             <button class="btn btn-primary" onclick="initReader()">📖 Leer y Resaltar</button>
-            <button class="btn btn-primary" style="border-color:#555; color:#aaa; margin-top:10px;" onclick="showStats()">🏆 Ranking de Agentes</button>
-            <button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button>
+            <button class="btn btn-primary" style="border-color:#555; color:#aaa; margin-top:10px;" onclick="showStats()">🏆 Ranking</button>
+            <button class="btn btn-danger" onclick="logout()">Salir</button>
         </div>
 
         <div id="view-reader" class="card">
             <h2>📜 Libro: Los Hechos</h2>
-            <p class="reader-instruction">Toca los párrafos para marcarlos como leídos.</p>
+            <p class="reader-instruction">Toca los párrafos para marcar lectura.</p>
             <div id="reader-content"></div>
             <button class="btn btn-primary" onclick="navTo('view-home')">Volver</button>
         </div>
 
         <div id="view-stats" class="card">
             <h2>🏆 Ranking</h2>
-            <p>Tus Puntos: <b id="stat-current" style="color:gold">0</b></p>
-            <table class="stats-table">
-                <thead><tr><th>#</th><th>Agente</th><th>Pts</th></tr></thead>
-                <tbody id="ranking-body"></tbody>
-            </table>
+            <p>Puntos Capítulo 17: <b id="stat-current" style="color:gold">0</b></p>
+            <table class="stats-table"><tbody id="ranking-body"></tbody></table>
             <button class="btn btn-primary" onclick="navTo('view-home')">Volver</button>
         </div>
 
         <div id="view-puzzle" class="card">
             <h2>🧩 Puzzle</h2>
             <div id="puzzle-container"></div>
-            <button class="btn" onclick="mixPuzzle()">Mezclar Piezas</button>
+            <button class="btn" onclick="mixPuzzle()">Mezclar</button>
             <div id="puzzle-feedback" class="feedback"></div>
         </div>
 
         <div id="view-memory" class="card">
             <h2>🧠 Memoria</h2>
-            <p style="text-align:center; font-size:0.8rem; color:#aaa;">Encuentra las parejas</p>
             <div id="memory-board" class="memory-grid"></div>
             <div id="memory-feedback" class="feedback"></div>
             <button class="btn" onclick="initMemory()">Reiniciar</button>
@@ -190,7 +177,7 @@
 
         <div id="view-hangman" class="card">
             <h2>💀 Ahorcado</h2>
-            <p style="text-align:center; color:#ccc;">PISTA: <span id="hangman-hint" style="color:var(--accent)"></span></p>
+            <p style="text-align:center">Pista: <span id="hangman-hint" style="color:var(--accent)"></span></p>
             <div id="hangman-lives" style="text-align:center"></div>
             <div id="hangman-word"></div>
             <div class="keyboard" id="hangman-keyboard"></div>
@@ -198,8 +185,8 @@
         </div>
 
         <div id="view-quiz" class="card">
-            <h2>⚡ Quiz Rápido</h2>
-            <p id="quiz-question" style="font-weight:bold; font-size:1.1rem; margin-bottom:20px;"></p>
+            <h2>⚡ Quiz</h2>
+            <p id="quiz-question" style="font-weight:bold"></p>
             <div id="quiz-options"></div>
             <div id="quiz-feedback" class="feedback"></div>
         </div>
@@ -207,48 +194,46 @@
         <div id="view-crossword" class="card">
             <h2>📝 Completar</h2>
             <div id="cw-list-container"></div>
-            <button class="btn" onclick="checkCrossword()">Verificar Respuestas</button>
+            <button class="btn" onclick="checkCrossword()">Verificar</button>
             <div id="cw-feedback" class="feedback"></div>
         </div>
 
         <div id="view-code" class="card">
-            <h2>🔓 Código Secreto</h2>
-            <p>PISTA: <span id="code-clue" style="color:var(--accent); font-weight:bold;"></span></p>
-            <input type="text" id="code-input" placeholder="Escribe la respuesta...">
+            <h2>🔓 Código</h2>
+            <p>Pista: <span id="code-clue" style="color:var(--accent)"></span></p>
+            <input type="text" id="code-input" placeholder="Respuesta...">
             <button class="btn" onclick="checkCode()">Desbloquear</button>
             <div id="code-feedback" class="feedback"></div>
         </div>
 
         <div id="view-words" class="card">
             <h2>🔎 Sopa de Letras</h2>
-            <div id="word-list" style="color:var(--accent); font-size:0.9rem; margin-bottom:15px; font-weight:bold;"></div>
+            <div id="word-list" style="color:var(--accent); font-size:0.8rem; margin-bottom:10px;"></div>
             <div id="sopa-game-area">
                 <div class="word-grid" id="grid-container"></div>
-                <button class="btn btn-primary" onclick="resetSelection()">Borrar Selección</button>
+                <button class="btn btn-primary" onclick="resetSelection()">Borrar</button>
             </div>
             <div id="word-success-container" style="display:none; text-align:center; padding:20px;">
-                <h3 style="color:var(--success)">¡Misión Cumplida!</h3>
+                <h3 style="color:var(--success)">¡COMPLETADO!</h3>
             </div>
         </div>
     </div>
 
     <nav class="nav-bar" id="main-nav">
-        <div class="nav-item active" onclick="navTo('view-home')"><span class="nav-icon">🏠</span><br>Inicio</div>
-        <div class="nav-item" onclick="navTo('view-puzzle')"><span class="nav-icon">🧩</span><br>Puzzle</div>
-        <div class="nav-item" onclick="navTo('view-memory')"><span class="nav-icon">🧠</span><br>Memo</div>
-        <div class="nav-item" onclick="navTo('view-hangman')"><span class="nav-icon">💀</span><br>Ahorcado</div>
-        <div class="nav-item" onclick="navTo('view-quiz')"><span class="nav-icon">⚡</span><br>Quiz</div>
-        <div class="nav-item" onclick="navTo('view-crossword')"><span class="nav-icon">📝</span><br>Letras</div>
-        <div class="nav-item" onclick="navTo('view-code')"><span class="nav-icon">🔓</span><br>Clave</div>
-        <div class="nav-item" onclick="navTo('view-words')"><span class="nav-icon">🔎</span><br>Sopa</div>
+        <div class="nav-item active" onclick="navTo('view-home')"><span class="nav-icon">🏠</span></div>
+        <div class="nav-item" onclick="navTo('view-puzzle')"><span class="nav-icon">🧩</span></div>
+        <div class="nav-item" onclick="navTo('view-memory')"><span class="nav-icon">🧠</span></div>
+        <div class="nav-item" onclick="navTo('view-hangman')"><span class="nav-icon">💀</span></div>
+        <div class="nav-item" onclick="navTo('view-quiz')"><span class="nav-icon">⚡</span></div>
+        <div class="nav-item" onclick="navTo('view-crossword')"><span class="nav-icon">📝</span></div>
+        <div class="nav-item" onclick="navTo('view-code')"><span class="nav-icon">🔓</span></div>
+        <div class="nav-item" onclick="navTo('view-words')"><span class="nav-icon">🔎</span></div>
     </nav>
 
     <script>
         /* =========================================
-           DATOS EXCLUSIVOS CAPITULO 17
+           DATOS CAPÍTULO 17
            ========================================= */
-        const CURRENT_CAP_ID = "17"; 
-        
         const DATA = {
             title: "Cap 17: Heraldos del Evangelio",
             intro: "Pablo y Bernabé son apartados por el Espíritu Santo para su primera gira misionera. Viajan a Chipre, donde enfrentan oposición espiritual y ganan almas.",
@@ -288,31 +273,48 @@
         /* SISTEMA */
         let currentUser = "";
         let agentData = { totalScore: 0, caps: {} };
+        const CAP_ID = "17"; 
+        const STORAGE_KEY_PREFIX = "mh_final_v53_"; // CLAVE NUEVA PARA EVITAR ERRORES
         const PTS = 100;
         let startTime=0, timerInterval, isTimerRunning=false;
         
         let memCards=[], hasFlipped=false, lockBoard=false, firstCard, secondCard;
         let hangmanState={ word:"", guessed:[], lives:6 }, quizIdx=0, curWordSel=[], wordsFound=0, pieces=[], emptySlot={x:2,y:2};
 
-        /* LOGIN */
         function handleLogin() {
-            let name = document.getElementById('login-name').value.trim();
-            if(!name) return alert("¡Escribe tu nombre!");
-            
-            currentUser = name;
-            let saved = localStorage.getItem("mh_user_" + currentUser);
-            agentData = saved ? JSON.parse(saved) : { totalScore: 0, caps: {} };
-            
-            // Inicializar datos si no existen para este cap
-            if(!agentData.caps[CURRENT_CAP_ID]) agentData.caps[CURRENT_CAP_ID] = { score:0, games:[], time: 0, read: [] };
-            
-            document.getElementById('player-display').innerText = "Agente: " + currentUser;
-            updateScoreUI(); loadChapterContent();
-            
-            document.getElementById('view-login').classList.remove('active');
-            document.getElementById('view-home').classList.add('active');
-            document.getElementById('main-nav').style.display = 'flex';
-            startTimer(); 
+            try {
+                let name = document.getElementById('login-name').value.trim();
+                if(!name) return alert("¡Por favor escribe tu nombre!");
+                
+                currentUser = name;
+                
+                // Intentar cargar o crear nuevo usuario
+                try {
+                    let saved = localStorage.getItem(STORAGE_KEY_PREFIX + currentUser);
+                    if (saved) {
+                        agentData = JSON.parse(saved);
+                    } else {
+                        agentData = { totalScore: 0, caps: {} };
+                    }
+                } catch(e) {
+                    agentData = { totalScore: 0, caps: {} }; // Reset si error
+                }
+
+                if(!agentData.caps) agentData.caps = {};
+                if(!agentData.caps[CAP_ID]) agentData.caps[CAP_ID] = { score:0, games:[], time: 0, read: [] };
+                
+                document.getElementById('player-display').innerText = "Agente: " + currentUser;
+                updateScoreUI(); 
+                loadChapterContent();
+                
+                document.getElementById('view-login').classList.remove('active');
+                document.getElementById('view-home').classList.add('active');
+                document.getElementById('main-nav').style.display = 'flex';
+                
+                startTimer();
+            } catch(err) {
+                alert("Error al iniciar: " + err.message);
+            }
         }
 
         function logout() {
@@ -324,27 +326,19 @@
         function loadChapterContent() {
             document.getElementById('home-title').innerText = DATA.title;
             document.getElementById('home-desc').innerText = DATA.intro;
-            
-            // Intentar cargar imagen
+            // Forzar carga de imagen
             let img = document.getElementById('home-img');
             img.src = DATA.img;
+            img.onerror = function() { this.src = 'portada.jpg'; };
             
-            // Inicializar todos los juegos
-            initReader(); 
-            initMemory(); 
-            initHangman(); 
-            initQuiz(); 
-            initWords(); 
-            initCode(); 
-            initSopa(); 
-            initPuzzle();
+            initReader(); initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
         }
 
         /* LECTOR */
         function initReader() {
             const container = document.getElementById('reader-content');
             container.innerHTML = "";
-            let readP = agentData.caps[CURRENT_CAP_ID].read || [];
+            let readP = agentData.caps[CAP_ID].read || [];
             DATA.text.forEach(function(txt, i) {
                 let p = document.createElement('div');
                 p.className = 'reader-paragraph';
@@ -358,33 +352,20 @@
             });
         }
         function saveRead(i, isRead) {
-            let c = agentData.caps[CURRENT_CAP_ID];
+            let c = agentData.caps[CAP_ID];
             if(!c.read) c.read = [];
             if(isRead) { 
                 if(!c.read.includes(i)) c.read.push(i); 
             } else { 
                 c.read = c.read.filter(function(x) { return x !== i; }); 
             }
-            localStorage.setItem("mh_user_" + currentUser, JSON.stringify(agentData));
+            localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData));
         }
 
         /* UTILS */
         function navTo(id) { 
             document.querySelectorAll('.card').forEach(function(c) { c.classList.remove('active'); });
             document.getElementById(id).classList.add('active'); 
-            
-            // Actualizar menu activo
-            document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
-            // Buscar el nav item correspondiente (logica simple)
-            let navs = document.getElementById('main-nav').children;
-            if(id==='view-home') navs[0].classList.add('active');
-            if(id==='view-puzzle') navs[1].classList.add('active');
-            if(id==='view-memory') navs[2].classList.add('active');
-            if(id==='view-hangman') navs[3].classList.add('active');
-            if(id==='view-quiz') navs[4].classList.add('active');
-            if(id==='view-crossword') navs[5].classList.add('active');
-            if(id==='view-code') navs[6].classList.add('active');
-            if(id==='view-words') navs[7].classList.add('active');
         }
         
         function playSound(t) { 
@@ -394,16 +375,19 @@
         }
         
         function updateScoreUI() { 
-            document.getElementById('score-display').innerText = agentData.caps[CURRENT_CAP_ID].score; 
+            if(agentData.caps && agentData.caps[CAP_ID]) {
+                document.getElementById('score-display').innerText = agentData.caps[CAP_ID].score; 
+            }
         }
         
         function saveProgress(gid) {
-            let c = agentData.caps[CURRENT_CAP_ID];
+            let c = agentData.caps[CAP_ID];
             if(!c.games.includes(gid)) { 
                 c.games.push(gid); 
                 c.score += PTS; 
+                if(!agentData.totalScore) agentData.totalScore = 0;
                 agentData.totalScore += PTS; 
-                localStorage.setItem("mh_user_" + currentUser, JSON.stringify(agentData)); 
+                localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData)); 
                 updateScoreUI(); 
                 playSound('win'); 
             }
@@ -412,7 +396,7 @@
         function startTimer() {
             if(isTimerRunning) return;
             isTimerRunning = true;
-            let saved = agentData.caps[CURRENT_CAP_ID].time || 0;
+            let saved = agentData.caps[CAP_ID].time || 0;
             startTime = Date.now() - (saved * 1000);
             timerInterval = setInterval(function() {
                 let diff = Math.floor((Date.now() - startTime)/1000);
@@ -421,23 +405,27 @@
                 let el = document.getElementById('global-timer');
                 if(el) el.innerText = m + ":" + s;
                 if(diff % 10 === 0) { 
-                    agentData.caps[CURRENT_CAP_ID].time = diff; 
-                    localStorage.setItem("mh_user_" + currentUser, JSON.stringify(agentData)); 
+                    agentData.caps[CAP_ID].time = diff; 
+                    localStorage.setItem(STORAGE_KEY_PREFIX + currentUser, JSON.stringify(agentData)); 
                 }
             }, 1000);
         }
         
         function showStats() {
-            document.getElementById('stat-current').innerText = agentData.caps[CURRENT_CAP_ID].score;
+            document.getElementById('stat-current').innerText = agentData.caps[CAP_ID].score;
             let tbody = document.getElementById('ranking-body');
             tbody.innerHTML = "";
             let us = [];
             for(let i=0; i<localStorage.length; i++) {
                 let k = localStorage.key(i);
-                if(k.startsWith('mh_user_')) { 
-                    let n = k.replace('mh_user_', ''); 
-                    let d = JSON.parse(localStorage.getItem(k)); 
-                    us.push({n:n, s:d.totalScore}); 
+                if(k.startsWith(STORAGE_KEY_PREFIX)) { 
+                    let n = k.replace(STORAGE_KEY_PREFIX, ''); 
+                    try {
+                        let d = JSON.parse(localStorage.getItem(k)); 
+                        if(d.caps && d.caps[CAP_ID]) {
+                            us.push({n:n, s:d.caps[CAP_ID].score}); 
+                        }
+                    } catch(e){}
                 }
             }
             us.sort(function(a,b) { return b.s - a.s; });
