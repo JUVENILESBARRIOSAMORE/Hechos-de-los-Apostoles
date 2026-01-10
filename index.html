@@ -23,7 +23,7 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* IMAGEN DE FONDO DE RESPALDO (ONLINE) */
+            /* Fondo de respaldo online */
             background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
             background-size: cover; 
             background-attachment: fixed; 
@@ -80,8 +80,8 @@
         #puzzle-container { position: relative; width: 300px; height: 300px; margin: 0 auto; border: 2px solid var(--accent); overflow: hidden; background: #222; }
         .puzzle-piece { position: absolute; width: 100px; height: 100px; border: 1px solid #000; box-sizing: border-box; transition: all 0.2s ease; cursor: pointer; background-size: 300px 300px; background-color: #333; }
 
-        /* SOPA - AUMENTADA */
-        .word-grid { display: grid; grid-template-columns: repeat(11, 1fr); gap: 1px; margin-top: 15px; } /* 11 columnas */
+        /* SOPA - 11x11 */
+        .word-grid { display: grid; grid-template-columns: repeat(11, 1fr); gap: 1px; margin-top: 15px; }
         .cell { aspect-ratio: 1; background: #25252e; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 2px; font-size: 0.75rem; border:1px solid #333; }
         .cell.selected { background: var(--accent); color: black; }
         .cell.found { background: var(--success); color: black; }
@@ -223,7 +223,7 @@
             hangman: { word: "GENTILES", hint: "Grupo que recibió el evangelio con alegría..." },
             quiz: [
                 { q: "¿En qué ciudad predicaron?", opts: ["Jerusalén","Antioquía de Pisidia","Roma"], c: 1 },
-                { q: "¿Qué sintieron los judíos al ver la multitud?", opts: ["Gozo","Celos","Miedo"], c: 1 },
+                { q: "¿Cómo reaccionaron los judíos?", opts: ["Gozo","Celos","Miedo"], c: 1 },
                 { q: "¿Qué hicieron los gentiles?", opts: ["Se alegraron","Se fueron","Durmieron"], c: 0 }
             ],
             words: [
@@ -237,7 +237,7 @@
             sopa: ["PABLO","GOZO","VIDA","LUZ","FE","DIOS"]
         };
 
-        /* SISTEMA */
+        /* SISTEMA SIMPLE */
         let currentScore = 0;
         const PTS = 100;
         
@@ -364,8 +364,9 @@
         function initPuzzle() {
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
-            // Usamos mapa online de respaldo en el CSS del puzzle
-            let bgUrl = `url('${DATA.img}'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg')`;
+            // Usamos mapa online de respaldo DIRECTAMENTE para asegurar que se vea
+            // Si quieres usar cap18.jpg, reemplaza la URL larga por 'cap18.jpg'
+            let bgUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg';
             
             for(let y=0; y<3; y++) {
                 for(let x=0; x<3; x++) {
@@ -374,7 +375,7 @@
                     p.className = 'puzzle-piece';
                     p.style.left = (x*100) + 'px';
                     p.style.top = (y*100) + 'px';
-                    p.style.backgroundImage = bgUrl;
+                    p.style.backgroundImage = `url('${bgUrl}')`; // USO DIRECTO
                     p.style.backgroundPosition = `-${x*100}px -${y*100}px`;
                     p.x = x; p.y = y; p.correctX = x; p.correctY = y;
                     p.onclick = () => movePiece(p);
@@ -407,7 +408,7 @@
         }
         function checkPuzzle() {
             if(pieces.every(p => p.x === p.correctX && p.y === p.correctY)) {
-                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO!</span>";
+                document.getElementById('puzzle-feedback').innerHTML = "<span class='success-msg'>¡COMPLETADO! (+100)</span>";
                 gameWin();
             }
         }
@@ -467,7 +468,7 @@
             q.opts.forEach((op,i)=>{ let b=document.createElement('button'); b.className='btn'; b.innerText=op; b.onclick=()=>{ if(i===q.c){ playSound('win'); b.style.background="var(--success)"; b.style.color="black"; setTimeout(()=>{quizIdx++; loadQ();},1000); } else { playSound('lose'); b.style.borderColor="var(--error)"; } }; o.appendChild(b); }); 
         }
 
-        function initWords() { let c=document.getElementById('cw-list-container'); c.innerHTML=""; DATA.words.forEach((w,i)=>{ let h=`<div style='margin-bottom:10px'><div style='color:#ccc; font-size:0.8rem;'>${i+1}. ${w.p}</div><div class="cw-inputs">`; for(let l of w.w) h+=`<input type="text" class="cw-cell-input" maxlength="1" data-l="${l}">`; h+=`</div></div>`; c.innerHTML+=h; }); setTimeout(()=>{ document.querySelectorAll('.cw-cell-input').forEach((inp,i,a)=>{ inp.oninput=function(){if(this.value && a[i+1]) a[i+1].focus();} }); },500); }
+        function initWords() { let c=document.getElementById('cw-list-container'); c.innerHTML=""; DATA.words.forEach((w,i)=>{ let h=`<div style='margin-bottom:10px; border-bottom:1px solid #333;'><div style='color:#ccc; font-size:0.8rem;'>${i+1}. ${w.p}</div><div class="cw-inputs">`; for(let l of w.w) h+=`<input type="text" class="cw-cell-input" maxlength="1" data-l="${l}">`; h+=`</div></div>`; c.innerHTML+=h; }); setTimeout(()=>{ document.querySelectorAll('.cw-cell-input').forEach((inp,i,a)=>{ inp.oninput=function(){if(this.value && a[i+1]) a[i+1].focus();} }); },500); }
         function checkCrossword() { let err=0; document.querySelectorAll('.cw-cell-input').forEach(i=>{ if(i.value.toUpperCase()===i.dataset.l){ i.style.backgroundColor="#00ff9d"; i.style.color="black"; i.disabled=true; } else { i.value=i.dataset.l; i.style.color="orange"; err++; } }); if(err===0){ document.getElementById('cw-feedback').innerHTML="<span class='success-msg'>¡PERFECTO!</span>"; gameWin(); } else document.getElementById('cw-feedback').innerHTML="<span class='error-msg'>Revelado</span>"; }
     </script>
 </body>
