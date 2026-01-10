@@ -14,6 +14,8 @@
             --success: #00ff9d;
             --error: #ff4f4f;
             --font-main: 'Segoe UI', Roboto, sans-serif;
+            /* URL DE RESPALDO (Mapa de viajes de Pablo) */
+            --backup-img: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif');
         }
 
         body { 
@@ -23,8 +25,9 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
+            
+            /* DOBLE CAPA DE FONDO: Si falta 'portada.jpg', usa la de internet */
+            background-image: url('portada.jpg'), var(--backup-img);
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -52,8 +55,9 @@
 
         h2 { border-left: 4px solid var(--accent); padding-left: 10px; margin-top: 0; font-size: 1.2rem; }
         
+        /* IMAGEN PRINCIPAL CON FONDO NEGRO POR SI ACASO */
         .img-box { width: 100%; border-radius: 10px; overflow: hidden; margin: 15px 0; border: 1px solid #444; background: #000; min-height: 200px; display: flex; align-items: center; justify-content: center;}
-        .img-box img { width: 100%; display: block; object-fit: cover; }
+        .img-box img { width: 100%; display: block; object-fit: cover; min-height: 200px; }
 
         .btn { background: transparent; border: 2px solid var(--accent); color: var(--accent); padding: 12px; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: 700; text-transform: uppercase; display: block; text-align: center; text-decoration: none; box-sizing: border-box; }
         .btn:active { transform: scale(0.95); }
@@ -78,9 +82,15 @@
 
         /* PUZZLE */
         #puzzle-container { position: relative; width: 300px; height: 300px; margin: 0 auto; border: 2px solid var(--accent); overflow: hidden; background: #222; }
-        .puzzle-piece { position: absolute; width: 100px; height: 100px; border: 1px solid #000; box-sizing: border-box; transition: all 0.2s ease; cursor: pointer; background-size: 300px 300px; background-color: #333; }
+        .puzzle-piece { 
+            position: absolute; width: 100px; height: 100px; 
+            border: 1px solid #000; box-sizing: border-box; 
+            transition: all 0.2s ease; cursor: pointer; 
+            background-color: #333; /* Color de fondo si falla todo */
+            background-size: 300px 300px; 
+        }
 
-        /* SOPA - 11x11 */
+        /* SOPA */
         .word-grid { display: grid; grid-template-columns: repeat(11, 1fr); gap: 1px; margin-top: 15px; }
         .cell { aspect-ratio: 1; background: #25252e; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; border-radius: 2px; font-size: 0.75rem; border:1px solid #333; }
         .cell.selected { background: var(--accent); color: black; }
@@ -131,11 +141,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap18.jpg" alt="Imagen Capitulo" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'">
+                <img id="home-img" src="cap18.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="#" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1023" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -213,9 +224,9 @@
            ========================================= */
         const DATA = {
             title: "Cap 18: Predicación a los Gentiles",
-            intro: "Pablo y Bernabé llegan a Antioquía de Pisidia. Predican en la sinagoga, pero ante el rechazo de los judíos, se vuelven a los gentiles con gozo.",
+            intro: "Pablo y Bernabé llegan a Antioquía de Pisidia. Predican en la sinagoga, pero ante el rechazo de los judíos, se vuelven a los gentiles.",
             img: "cap18.jpg",
-            link: "https://m.egwwritings.org/es/book/198.1023", // Link correcto Cap 18
+            link: "https://m.egwwritings.org/es/book/198.1023", 
             memoryPairs: [
                 {a:"Antioquía", b:"Pisidia"}, {a:"Pablo", b:"Bernabé"}, {a:"Sinagoga", b:"Sábado"},
                 {a:"Judíos", b:"Celos"}, {a:"Gentiles", b:"Creyentes"}, {a:"Palabra", b:"Señor"}
@@ -231,13 +242,12 @@
                 {p:"Sentimiento negativo judío", w:"CELOS"}, 
                 {p:"Resultado de creer", w:"VIDA"}
             ],
-            // SALVACION = 20-1-12-23-1-3-9-16-14 (A=1)
+            // SALVACION
             code: { hint: "20-1-12-23-1-3-9-16-14", sol: "SALVACION" }, 
-            // Palabras más cortas para asegurar que entren en la sopa
             sopa: ["PABLO","GOZO","VIDA","LUZ","FE","DIOS"]
         };
 
-        /* SISTEMA SIMPLE */
+        /* SISTEMA */
         let currentScore = 0;
         const PTS = 100;
         
@@ -252,19 +262,14 @@
             document.getElementById('home-title').innerText = DATA.title;
             document.getElementById('home-desc').innerText = DATA.intro;
             
-            // Imagen con fallback
             let img = document.getElementById('home-img');
-            img.src = DATA.img;
-            img.onerror = function() { 
-                this.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'; 
-            };
+            img.src = DATA.img; // Intenta cargar cap18.jpg
             
             document.getElementById('read-btn').href = DATA.link;
             
             initMemory(); initHangman(); initQuiz(); initWords(); initCode(); initSopa(); initPuzzle();
         }
 
-        /* UTILS */
         function navTo(id) { 
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             document.getElementById(id).classList.add('active'); 
@@ -280,13 +285,12 @@
             playSound('win');
         }
 
-        /* 1. SOPA DE LETRAS REPARADA (11x11 y palabras seguras) */
+        /* 1. SOPA DE LETRAS */
         function initSopa() {
             let l = document.getElementById('word-list');
             let g = document.getElementById('grid-container');
             l.innerHTML = ""; g.innerHTML = ""; curWordSel = []; wordsFound = 0;
             
-            // Usamos un array de 121 celdas (11x11)
             let gridSize = 11;
             let letters = new Array(gridSize * gridSize).fill('');
             let placedWords = [];
@@ -319,7 +323,6 @@
                 }
             });
 
-            // Dibujar
             let abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             for(let i=0; i<letters.length; i++) {
                 let cell = document.createElement('div');
@@ -360,13 +363,17 @@
         }
         function resetSelection() { curWordSel.forEach(e => e.classList.remove('selected')); curWordSel = []; }
 
-        /* 2. PUZZLE CON RESPALDO ONLINE */
+        /* 2. PUZZLE BLINDADO (DOBLE URL) */
         function initPuzzle() {
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
-            // Usamos mapa online de respaldo DIRECTAMENTE para asegurar que se vea
-            // Si quieres usar cap18.jpg, reemplaza la URL larga por 'cap18.jpg'
-            let bgUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg';
+            
+            // AQUI ESTA EL TRUCO: Define las dos URLs en el CSS del elemento
+            // 1. Intenta cap18.jpg
+            // 2. Si no, usa el mapa de internet
+            // 3. Si no, usa portada.jpg
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif';
+            let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
                 for(let x=0; x<3; x++) {
@@ -375,7 +382,7 @@
                     p.className = 'puzzle-piece';
                     p.style.left = (x*100) + 'px';
                     p.style.top = (y*100) + 'px';
-                    p.style.backgroundImage = `url('${bgUrl}')`; // USO DIRECTO
+                    p.style.backgroundImage = bgStyle; 
                     p.style.backgroundPosition = `-${x*100}px -${y*100}px`;
                     p.x = x; p.y = y; p.correctX = x; p.correctY = y;
                     p.onclick = () => movePiece(p);
@@ -413,7 +420,7 @@
             }
         }
 
-        /* 3. CÓDIGO REPARADO */
+        /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
             if(val === DATA.code.sol || val === "SALVACION") {
@@ -468,7 +475,7 @@
             q.opts.forEach((op,i)=>{ let b=document.createElement('button'); b.className='btn'; b.innerText=op; b.onclick=()=>{ if(i===q.c){ playSound('win'); b.style.background="var(--success)"; b.style.color="black"; setTimeout(()=>{quizIdx++; loadQ();},1000); } else { playSound('lose'); b.style.borderColor="var(--error)"; } }; o.appendChild(b); }); 
         }
 
-        function initWords() { let c=document.getElementById('cw-list-container'); c.innerHTML=""; DATA.words.forEach((w,i)=>{ let h=`<div style='margin-bottom:10px; border-bottom:1px solid #333;'><div style='color:#ccc; font-size:0.8rem;'>${i+1}. ${w.p}</div><div class="cw-inputs">`; for(let l of w.w) h+=`<input type="text" class="cw-cell-input" maxlength="1" data-l="${l}">`; h+=`</div></div>`; c.innerHTML+=h; }); setTimeout(()=>{ document.querySelectorAll('.cw-cell-input').forEach((inp,i,a)=>{ inp.oninput=function(){if(this.value && a[i+1]) a[i+1].focus();} }); },500); }
+        function initWords() { let c=document.getElementById('cw-list-container'); c.innerHTML=""; DATA.words.forEach((w,i)=>{ let h=`<div style='margin-bottom:10px'><div style='color:#ccc; font-size:0.8rem;'>${i+1}. ${w.p}</div><div class="cw-inputs">`; for(let l of w.w) h+=`<input type="text" class="cw-cell-input" maxlength="1" data-l="${l}">`; h+=`</div></div>`; c.innerHTML+=h; }); setTimeout(()=>{ document.querySelectorAll('.cw-cell-input').forEach((inp,i,a)=>{ inp.oninput=function(){if(this.value && a[i+1]) a[i+1].focus();} }); },500); }
         function checkCrossword() { let err=0; document.querySelectorAll('.cw-cell-input').forEach(i=>{ if(i.value.toUpperCase()===i.dataset.l){ i.style.backgroundColor="#00ff9d"; i.style.color="black"; i.disabled=true; } else { i.value=i.dataset.l; i.style.color="orange"; err++; } }); if(err===0){ document.getElementById('cw-feedback').innerHTML="<span class='success-msg'>¡PERFECTO!</span>"; gameWin(); } else document.getElementById('cw-feedback').innerHTML="<span class='error-msg'>Revelado</span>"; }
     </script>
 </body>
