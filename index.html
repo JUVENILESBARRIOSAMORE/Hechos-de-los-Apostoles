@@ -143,7 +143,7 @@
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1077" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.781" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -221,27 +221,27 @@
            ========================================= */
         const DATA = {
             title: "Cap 19: Judíos y Gentiles",
-            intro: "En Iconio y Listra, Pablo y Bernabé predican con poder. En Listra, sanan a un cojo y la gente intenta adorarlos como dioses, pero luego los apedrean.",
+            intro: "Surge una gran disputa: ¿Deben circuncidarse los gentiles? Pablo y Bernabé viajan a Jerusalén para consultar a los apóstoles y ancianos.",
             img: "cap19.jpg", // Recuerda subir esta imagen
-            link: "https://m.egwwritings.org/es/book/198.1077", // Link correcto Cap 19
+            link: "https://m.egwwritings.org/es/book/198.781", // Enlace correcto
             memoryPairs: [
-                {a:"Iconio", b:"Sinagoga"}, {a:"Listra", b:"Cojo"}, {a:"Bernabé", b:"Júpiter"},
-                {a:"Pablo", b:"Mercurio"}, {a:"Dioses", b:"Hombres"}, {a:"Piedras", b:"Pablo"}
+                {a:"Concilio", b:"Jerusalén"}, {a:"Pedro", b:"Testigo"}, {a:"Santiago", b:"Líder"},
+                {a:"Yugo", b:"Ley"}, {a:"Gracia", b:"Salvación"}, {a:"Carta", b:"Gentiles"}
             ],
-            hangman: { word: "MERCURIO", hint: "Nombre del dios falso con que llamaron a Pablo..." },
+            hangman: { word: "CIRCUNCISION", hint: "El rito que causó la discusión..." },
             quiz: [
-                { q: "¿Qué milagro ocurrió en Listra?", opts: ["Sanaron a un ciego","Sanaron a un cojo","Multiplicaron pan"], c: 1 },
-                { q: "¿Como llamaron a Bernabé?", opts: ["Mercurio","Júpiter","Zeus"], c: 1 },
-                { q: "¿Qué hicieron los judíos al final?", opts: ["Apedrearon a Pablo","Oraron","Se fueron"], c: 0 }
+                { q: "¿Dónde surgió el conflicto?", opts: ["Antioquía","Roma","Atenas"], c: 0 },
+                { q: "¿Quién dio el veredicto final?", opts: ["Pablo","Santiago (Jacobo)","Juan"], c: 1 },
+                { q: "¿Cómo se salvan los gentiles?", opts: ["Por la ley","Por la gracia","Por obras"], c: 1 }
             ],
             words: [
-                {p:"Ciudad de huida", w:"LISTRA"}, 
-                {p:"Dios falso de Bernabé", w:"JUPITER"}, 
-                {p:"Sufrió apedreamiento", w:"PABLO"}
+                {p:"Ciudad del concilio", w:"JERUSALEN"}, 
+                {p:"Tema de discusión", w:"RITO"}, 
+                {p:"Enviado con Pablo", w:"SILAS"}
             ],
-            // PIEDRAS = 16-9-5-4-18-1-19
-            code: { hint: "16-9-5-4-18-1-19", sol: "PIEDRAS" }, 
-            sopa: ["LISTRA","DERBE","PABLO","DIOS","PIEDRAS","ICONIO"]
+            // LIBERTAD = 12-9-2-5-18-20-1-4 (A=1)
+            code: { hint: "12-9-2-5-18-20-1-4", sol: "LIBERTAD" }, 
+            sopa: ["CONCILIO","PEDRO","PABLO","LEY","GRACIA","CARTA"]
         };
 
         /* SISTEMA */
@@ -360,15 +360,12 @@
         }
         function resetSelection() { curWordSel.forEach(e => e.classList.remove('selected')); curWordSel = []; }
 
-        /* 2. PUZZLE CON DOBLE RESPALDO */
+        /* 2. PUZZLE BLINDADO (DOBLE URL) */
         function initPuzzle() {
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            // 1. Intenta cap19.jpg
-            // 2. Si no, usa el mapa de internet
-            // 3. Si no, usa portada.jpg
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -419,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "PIEDRAS") {
+            if(val === DATA.code.sol || val === "LIBERTAD") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
