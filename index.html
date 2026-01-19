@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 18</title>
+    <title>Misión: HECHOS 19</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -14,8 +14,6 @@
             --success: #00ff9d;
             --error: #ff4f4f;
             --font-main: 'Segoe UI', Roboto, sans-serif;
-            /* URL DE RESPALDO (Mapa de viajes de Pablo) */
-            --backup-img: url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif');
         }
 
         body { 
@@ -25,9 +23,8 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            
-            /* DOBLE CAPA DE FONDO: Si falta 'portada.jpg', usa la de internet */
-            background-image: url('portada.jpg'), var(--backup-img);
+            /* Fondo de respaldo online */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -86,7 +83,7 @@
             position: absolute; width: 100px; height: 100px; 
             border: 1px solid #000; box-sizing: border-box; 
             transition: all 0.2s ease; cursor: pointer; 
-            background-color: #333; /* Color de fondo si falla todo */
+            background-color: #333;
             background-size: 300px 300px; 
         }
 
@@ -141,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap18.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif'}">
+                <img id="home-img" src="cap19.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1023" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1077" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -220,31 +217,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 18 - "Predicación a los Gentiles"
+           DATOS CAPÍTULO 19 - "Judíos y Gentiles"
            ========================================= */
         const DATA = {
-            title: "Cap 18: Predicación a los Gentiles",
-            intro: "Pablo y Bernabé llegan a Antioquía de Pisidia. Predican en la sinagoga, pero ante el rechazo de los judíos, se vuelven a los gentiles.",
-            img: "cap18.jpg",
-            link: "https://m.egwwritings.org/es/book/198.1023", 
+            title: "Cap 19: Judíos y Gentiles",
+            intro: "En Iconio y Listra, Pablo y Bernabé predican con poder. En Listra, sanan a un cojo y la gente intenta adorarlos como dioses, pero luego los apedrean.",
+            img: "cap19.jpg", // Recuerda subir esta imagen
+            link: "https://m.egwwritings.org/es/book/198.1077", // Link correcto Cap 19
             memoryPairs: [
-                {a:"Antioquía", b:"Pisidia"}, {a:"Pablo", b:"Bernabé"}, {a:"Sinagoga", b:"Sábado"},
-                {a:"Judíos", b:"Celos"}, {a:"Gentiles", b:"Creyentes"}, {a:"Palabra", b:"Señor"}
+                {a:"Iconio", b:"Sinagoga"}, {a:"Listra", b:"Cojo"}, {a:"Bernabé", b:"Júpiter"},
+                {a:"Pablo", b:"Mercurio"}, {a:"Dioses", b:"Hombres"}, {a:"Piedras", b:"Pablo"}
             ],
-            hangman: { word: "GENTILES", hint: "Grupo que recibió el evangelio con alegría..." },
+            hangman: { word: "MERCURIO", hint: "Nombre del dios falso con que llamaron a Pablo..." },
             quiz: [
-                { q: "¿En qué ciudad predicaron?", opts: ["Jerusalén","Antioquía de Pisidia","Roma"], c: 1 },
-                { q: "¿Cómo reaccionaron los judíos?", opts: ["Gozo","Celos","Miedo"], c: 1 },
-                { q: "¿Qué hicieron los gentiles?", opts: ["Se alegraron","Se fueron","Durmieron"], c: 0 }
+                { q: "¿Qué milagro ocurrió en Listra?", opts: ["Sanaron a un ciego","Sanaron a un cojo","Multiplicaron pan"], c: 1 },
+                { q: "¿Como llamaron a Bernabé?", opts: ["Mercurio","Júpiter","Zeus"], c: 1 },
+                { q: "¿Qué hicieron los judíos al final?", opts: ["Apedrearon a Pablo","Oraron","Se fueron"], c: 0 }
             ],
             words: [
-                {p:"Lugar de reunión", w:"SINAGOGA"}, 
-                {p:"Sentimiento negativo judío", w:"CELOS"}, 
-                {p:"Resultado de creer", w:"VIDA"}
+                {p:"Ciudad de huida", w:"LISTRA"}, 
+                {p:"Dios falso de Bernabé", w:"JUPITER"}, 
+                {p:"Sufrió apedreamiento", w:"PABLO"}
             ],
-            // SALVACION
-            code: { hint: "20-1-12-23-1-3-9-16-14", sol: "SALVACION" }, 
-            sopa: ["PABLO","GOZO","VIDA","LUZ","FE","DIOS"]
+            // PIEDRAS = 16-9-5-4-18-1-19
+            code: { hint: "16-9-5-4-18-1-19", sol: "PIEDRAS" }, 
+            sopa: ["LISTRA","DERBE","PABLO","DIOS","PIEDRAS","ICONIO"]
         };
 
         /* SISTEMA */
@@ -263,7 +260,7 @@
             document.getElementById('home-desc').innerText = DATA.intro;
             
             let img = document.getElementById('home-img');
-            img.src = DATA.img; // Intenta cargar cap18.jpg
+            img.src = DATA.img; // Intenta cargar cap19.jpg
             
             document.getElementById('read-btn').href = DATA.link;
             
@@ -363,16 +360,15 @@
         }
         function resetSelection() { curWordSel.forEach(e => e.classList.remove('selected')); curWordSel = []; }
 
-        /* 2. PUZZLE BLINDADO (DOBLE URL) */
+        /* 2. PUZZLE CON DOBLE RESPALDO */
         function initPuzzle() {
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            // AQUI ESTA EL TRUCO: Define las dos URLs en el CSS del elemento
-            // 1. Intenta cap18.jpg
+            // 1. Intenta cap19.jpg
             // 2. Si no, usa el mapa de internet
             // 3. Si no, usa portada.jpg
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -423,7 +419,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "SALVACION") {
+            if(val === DATA.code.sol || val === "PIEDRAS") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
