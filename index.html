@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 19</title>
+    <title>Misión: HECHOS 20</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -138,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap19.jpg" alt="Imagen Capitulo" 
+                <img id="home-img" src="cap20.jpg" alt="Imagen Capitulo" 
                      onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.781" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1130" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -217,31 +217,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 19 - "Judíos y Gentiles"
+           DATOS CAPÍTULO 20 - "Exaltando la Cruz"
            ========================================= */
         const DATA = {
-            title: "Cap 19: Judíos y Gentiles",
-            intro: "Surge una gran disputa: ¿Deben circuncidarse los gentiles? Pablo y Bernabé viajan a Jerusalén para consultar a los apóstoles y ancianos.",
-            img: "cap19.jpg", // Recuerda subir esta imagen
-            link: "https://m.egwwritings.org/es/book/198.781", // Enlace correcto
+            title: "Cap 20: Exaltando la Cruz",
+            intro: "Pablo y Bernabé se separan por desacuerdo sobre Marcos. Pablo elige a Silas y luego encuentra al joven Timoteo, a quien instruye para la obra.",
+            img: "cap20.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1130", // Enlace correcto Cap 20
             memoryPairs: [
-                {a:"Concilio", b:"Jerusalén"}, {a:"Pedro", b:"Testigo"}, {a:"Santiago", b:"Líder"},
-                {a:"Yugo", b:"Ley"}, {a:"Gracia", b:"Salvación"}, {a:"Carta", b:"Gentiles"}
+                {a:"Pablo", b:"Silas"}, {a:"Bernabé", b:"Marcos"}, {a:"Timoteo", b:"Discípulo"},
+                {a:"Eunice", b:"Madre"}, {a:"Loida", b:"Abuela"}, {a:"Cruz", b:"Predicación"}
             ],
-            hangman: { word: "CIRCUNCISION", hint: "El rito que causó la discusión..." },
+            hangman: { word: "TIMOTEO", hint: "Joven discípulo que se unió a Pablo en Listra..." },
             quiz: [
-                { q: "¿Dónde surgió el conflicto?", opts: ["Antioquía","Roma","Atenas"], c: 0 },
-                { q: "¿Quién dio el veredicto final?", opts: ["Pablo","Santiago (Jacobo)","Juan"], c: 1 },
-                { q: "¿Cómo se salvan los gentiles?", opts: ["Por la ley","Por la gracia","Por obras"], c: 1 }
+                { q: "¿Por qué se separaron Pablo y Bernabé?", opts: ["Por doctrina","Por Juan Marcos","Por dinero"], c: 1 },
+                { q: "¿A quién eligió Pablo como compañero?", opts: ["Lucas","Silas","Pedro"], c: 1 },
+                { q: "¿De qué nacionalidad era el padre de Timoteo?", opts: ["Judío","Griego","Romano"], c: 1 }
             ],
             words: [
-                {p:"Ciudad del concilio", w:"JERUSALEN"}, 
-                {p:"Tema de discusión", w:"RITO"}, 
-                {p:"Enviado con Pablo", w:"SILAS"}
+                {p:"Causa de separación", w:"DISPUTA"}, 
+                {p:"Joven ayudante", w:"TIMOTEO"}, 
+                {p:"Lo que exaltaban", w:"CRUZ"}
             ],
-            // LIBERTAD = 12-9-2-5-18-20-1-4 (A=1)
-            code: { hint: "12-9-2-5-18-20-1-4", sol: "LIBERTAD" }, 
-            sopa: ["CONCILIO","PEDRO","PABLO","LEY","GRACIA","CARTA"]
+            // EJEMPLO = 5-10-5-13-16-12-15 (A=1)
+            code: { hint: "5-10-5-13-16-12-15", sol: "EJEMPLO" }, 
+            sopa: ["PABLO","SILAS","MARCOS","TIMOTEO","CRUZ","LISTRA"]
         };
 
         /* SISTEMA */
@@ -260,7 +260,7 @@
             document.getElementById('home-desc').innerText = DATA.intro;
             
             let img = document.getElementById('home-img');
-            img.src = DATA.img; // Intenta cargar cap19.jpg
+            img.src = DATA.img; // Intenta cargar cap20.jpg
             
             document.getElementById('read-btn').href = DATA.link;
             
@@ -416,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "LIBERTAD") {
+            if(val === DATA.code.sol || val === "EJEMPLO") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
