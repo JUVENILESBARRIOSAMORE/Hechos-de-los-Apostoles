@@ -23,8 +23,8 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
+            /* Fondo de respaldo online: Ruinas de Corinto */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -52,7 +52,7 @@
 
         h2 { border-left: 4px solid var(--accent); padding-left: 10px; margin-top: 0; font-size: 1.2rem; }
         
-        /* IMAGEN PRINCIPAL CON FONDO NEGRO POR SI ACASO */
+        /* IMAGEN PRINCIPAL */
         .img-box { width: 100%; border-radius: 10px; overflow: hidden; margin: 15px 0; border: 1px solid #444; background: #000; min-height: 200px; display: flex; align-items: center; justify-content: center;}
         .img-box img { width: 100%; display: block; object-fit: cover; min-height: 200px; }
 
@@ -139,11 +139,11 @@
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
                 <img id="home-img" src="cap21.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'}">
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1186" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1186#1186" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -223,7 +223,7 @@
             title: "Cap 21: Evangelizando la Gran Metrópoli",
             intro: "Pablo llega a Corinto, una ciudad idólatra y comercial. Conoce a Aquila y Priscila, trabaja haciendo tiendas y predica con poder.",
             img: "cap21.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.1186", // ID CORREGIDO
+            link: "https://m.egwwritings.org/es/book/198.1186#1186", // ENLACE CORRECTO
             memoryPairs: [
                 {a:"Pablo", b:"Apostol"}, {a:"Aquila", b:"Priscila"}, {a:"Tiendas", b:"Oficio"},
                 {a:"Corinto", b:"Ciudad"}, {a:"Crispo", b:"Sinagoga"}, {a:"Silas", b:"Timoteo"}
@@ -260,7 +260,7 @@
             document.getElementById('home-desc').innerText = DATA.intro;
             
             let img = document.getElementById('home-img');
-            img.src = DATA.img; // Intenta cargar cap21.jpg
+            img.src = DATA.img; 
             
             document.getElementById('read-btn').href = DATA.link;
             
@@ -365,7 +365,8 @@
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Paul%27s_First_Missionary_Journey.gif/600px-Paul%27s_First_Missionary_Journey.gif';
+            // Imagen de respaldo: Ruinas de Corinto
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
