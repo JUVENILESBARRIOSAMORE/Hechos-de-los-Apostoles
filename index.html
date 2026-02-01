@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 20</title>
+    <title>Misión: HECHOS 21</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -138,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap20.jpg" alt="Imagen Capitulo" 
+                <img id="home-img" src="cap21.jpg" alt="Imagen Capitulo" 
                      onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.837" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1186" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -217,31 +217,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 20 - "Exaltando la Cruz"
+           DATOS CAPÍTULO 21 - "Evangelizando la Gran Metrópoli"
            ========================================= */
         const DATA = {
-            title: "Cap 20: Exaltando la Cruz",
-            intro: "Pablo y Bernabé se separan por desacuerdo sobre Marcos. Pablo elige a Silas y luego encuentra al joven Timoteo, a quien instruye para la obra.",
-            img: "cap20.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.837", // ID CORREGIDO: 198.837
+            title: "Cap 21: Evangelizando la Gran Metrópoli",
+            intro: "Pablo llega a Corinto, una ciudad idólatra y comercial. Conoce a Aquila y Priscila, trabaja haciendo tiendas y predica con poder.",
+            img: "cap21.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1186", // ID CORREGIDO
             memoryPairs: [
-                {a:"Pablo", b:"Silas"}, {a:"Bernabé", b:"Marcos"}, {a:"Timoteo", b:"Discípulo"},
-                {a:"Eunice", b:"Madre"}, {a:"Loida", b:"Abuela"}, {a:"Cruz", b:"Predicación"}
+                {a:"Pablo", b:"Apostol"}, {a:"Aquila", b:"Priscila"}, {a:"Tiendas", b:"Oficio"},
+                {a:"Corinto", b:"Ciudad"}, {a:"Crispo", b:"Sinagoga"}, {a:"Silas", b:"Timoteo"}
             ],
-            hangman: { word: "TIMOTEO", hint: "Joven discípulo que se unió a Pablo en Listra..." },
+            hangman: { word: "CORINTO", hint: "Gran ciudad comercial donde predicó Pablo..." },
             quiz: [
-                { q: "¿Por qué se separaron Pablo y Bernabé?", opts: ["Por doctrina","Por Juan Marcos","Por dinero"], c: 1 },
-                { q: "¿A quién eligió Pablo como compañero?", opts: ["Lucas","Silas","Pedro"], c: 1 },
-                { q: "¿De qué nacionalidad era el padre de Timoteo?", opts: ["Judío","Griego","Romano"], c: 1 }
+                { q: "¿Qué oficio tenía Pablo?", opts: ["Carpintero","Hacedor de tiendas","Pescador"], c: 1 },
+                { q: "¿Quiénes eran sus compañeros de trabajo?", opts: ["Aquila y Priscila","Pedro y Juan","Ananías y Safira"], c: 0 },
+                { q: "¿Quién era el principal de la sinagoga que creyó?", opts: ["Gayo","Crispo","Apolos"], c: 1 }
             ],
             words: [
-                {p:"Causa de separación", w:"DISPUTA"}, 
-                {p:"Joven ayudante", w:"TIMOTEO"}, 
-                {p:"Lo que exaltaban", w:"CRUZ"}
+                {p:"Oficio manual", w:"TIENDAS"}, 
+                {p:"Esposa de Aquila", w:"PRISCILA"}, 
+                {p:"Ciudad visitada", w:"CORINTO"}
             ],
-            // EJEMPLO = 5-10-5-13-16-12-15 (A=1)
-            code: { hint: "5-10-5-13-16-12-15", sol: "EJEMPLO" }, 
-            sopa: ["PABLO","SILAS","MARCOS","TIMOTEO","CRUZ","LISTRA"]
+            // TIENDAS = 20-9-5-14-4-1-19 (A=1)
+            code: { hint: "20-9-5-14-4-1-19", sol: "TIENDAS" }, 
+            sopa: ["AQUILA","CRISPO","PABLO","DIOS","FE","TIENDAS"]
         };
 
         /* SISTEMA */
@@ -260,7 +260,7 @@
             document.getElementById('home-desc').innerText = DATA.intro;
             
             let img = document.getElementById('home-img');
-            img.src = DATA.img; // Intenta cargar cap20.jpg
+            img.src = DATA.img; // Intenta cargar cap21.jpg
             
             document.getElementById('read-btn').href = DATA.link;
             
@@ -416,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "EJEMPLO") {
+            if(val === DATA.code.sol || val === "TIENDAS") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
