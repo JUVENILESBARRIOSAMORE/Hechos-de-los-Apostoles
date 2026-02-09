@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 21</title>
+    <title>Misión: HECHOS 22</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -23,8 +23,8 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online: Ruinas de Corinto */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg');
+            /* Fondo de respaldo online: Mapa del 2do viaje */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -138,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap21.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg'}">
+                <img id="home-img" src="cap22.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.879#879" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1238#1238" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -217,31 +217,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 21 - "Evangelizando la Gran Metrópoli"
+           DATOS CAPÍTULO 22 - "Tesalónica"
            ========================================= */
         const DATA = {
-            title: "Cap 21: Evangelizando la Gran Metrópoli",
-            intro: "Pablo llega a Corinto, una ciudad idólatra y comercial. Conoce a Aquila y Priscila, trabaja haciendo tiendas y predica con poder.",
-            img: "cap21.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.879#879", // ENLACE CORREGIDO
+            title: "Cap 22: Tesalónica",
+            intro: "Pablo y Silas predican en Tesalónica. Muchos creen, pero los judíos celosos causan un alboroto en casa de Jasón. Luego viajan a Berea, donde hallan creyentes nobles.",
+            img: "cap22.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1238#1238", // ID APROXIMADO (Verificar)
             memoryPairs: [
-                {a:"Pablo", b:"Apostol"}, {a:"Aquila", b:"Priscila"}, {a:"Tiendas", b:"Oficio"},
-                {a:"Corinto", b:"Ciudad"}, {a:"Crispo", b:"Sinagoga"}, {a:"Silas", b:"Timoteo"}
+                {a:"Tesalónica", b:"Ciudad"}, {a:"Jasón", b:"Hospedador"}, {a:"Berea", b:"Nobles"},
+                {a:"Escrituras", b:"Diario"}, {a:"Silas", b:"Compañero"}, {a:"Alboroto", b:"Celos"}
             ],
-            hangman: { word: "CORINTO", hint: "Gran ciudad comercial donde predicó Pablo..." },
+            hangman: { word: "TESALONICA", hint: "Ciudad donde se hospedaron con Jasón..." },
             quiz: [
-                { q: "¿Qué oficio tenía Pablo?", opts: ["Carpintero","Hacedor de tiendas","Pescador"], c: 1 },
-                { q: "¿Quiénes eran sus compañeros de trabajo?", opts: ["Aquila y Priscila","Pedro y Juan","Ananías y Safira"], c: 0 },
-                { q: "¿Quién era el principal de la sinagoga que creyó?", opts: ["Gayo","Crispo","Apolos"], c: 1 }
+                { q: "¿En casa de quién se hospedaron?", opts: ["Jasón","Lidia","Cornelio"], c: 0 },
+                { q: "¿Qué distinguía a los de Berea?", opts: ["Eran ricos","Escudriñaban las Escrituras","Eran soldados"], c: 1 },
+                { q: "¿Quiénes causaron problemas?", opts: ["Los romanos","Judíos celosos","Los griegos"], c: 1 }
             ],
             words: [
-                {p:"Oficio manual", w:"TIENDAS"}, 
-                {p:"Esposa de Aquila", w:"PRISCILA"}, 
-                {p:"Ciudad visitada", w:"CORINTO"}
+                {p:"Hospedador de Pablo", w:"JASON"}, 
+                {p:"Ciudad de gente noble", w:"BEREA"}, 
+                {p:"Lo que estudiaban", w:"BIBLIA"}
             ],
-            // TIENDAS = 20-9-5-14-4-1-19 (A=1)
-            code: { hint: "20-9-5-14-4-1-19", sol: "TIENDAS" }, 
-            sopa: ["AQUILA","CRISPO","PABLO","DIOS","FE","TIENDAS"]
+            // BEREANOS = 2-5-18-5-1-14-15-19 (A=1)
+            code: { hint: "2-5-18-5-1-14-15-19", sol: "BEREANOS" }, 
+            sopa: ["JASON","BEREA","ESCRITURAS","SILAS","PABLO","NOBLES"]
         };
 
         /* SISTEMA */
@@ -365,8 +365,7 @@
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            // Imagen de respaldo: Ruinas de Corinto
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Paul_First_Missionary_Journey_Map.jpg/1200px-Paul_First_Missionary_Journey_Map.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -417,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "TIENDAS") {
+            if(val === DATA.code.sol || val === "BEREANOS") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
