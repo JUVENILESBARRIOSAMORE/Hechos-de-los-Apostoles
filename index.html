@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 23</title>
+    <title>Misión: HECHOS 24</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -23,8 +23,8 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online: Acrópolis de Atenas */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/The_Parthenon_in_Athens.jpg/1200px-The_Parthenon_in_Athens.jpg');
+            /* Fondo de respaldo online: Ruinas de Corinto */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -138,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap23.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/The_Parthenon_in_Athens.jpg/1200px-The_Parthenon_in_Athens.jpg'}">
+                <img id="home-img" src="cap24.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.966#966" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1008#1008" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -217,34 +217,34 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 23 - "Berea y Atenas"
+           DATOS CAPÍTULO 24 - "Corinto"
            ========================================= */
         const DATA = {
-            title: "Cap 23: Berea y Atenas",
-            intro: "Pablo llega a Atenas y se conmueve al ver la ciudad entregada a la idolatría. Discute con filósofos en el Areópago sobre el Dios desconocido.",
-            img: "cap23.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.966#966", // ENLACE CORRECTO
+            title: "Cap 24: Corinto",
+            intro: "Pablo llega a Corinto, un gran centro comercial lleno de idolatría. Allí conoce a Aquila y Priscila, trabaja fabricando tiendas, y recibe una visión de Dios animándolo a predicar.",
+            img: "cap24.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1008#1008",
             memoryPairs: [
-                {a:"Atenas", b:"Idolatría"}, {a:"Pablo", b:"Areópago"}, {a:"Dios", b:"Creador"},
-                {a:"Filósofos", b:"Estoicos"}, {a:"Dionisio", b:"Creyente"}, {a:"Altar", b:"Desconocido"}
+                {a:"Aquila", b:"Priscila"}, {a:"Corinto", b:"Comercio"}, {a:"Tiendas", b:"Oficio"},
+                {a:"Crispo", b:"Sinagoga"}, {a:"Galión", b:"Procónsul"}, {a:"Visión", b:"Promesa"}
             ],
-            hangman: { word: "AREOPAGO", hint: "Colina donde Pablo dio su famoso discurso..." },
+            hangman: { word: "AQUILA", hint: "Judío fabricante de tiendas que hospedó a Pablo..." },
             quiz: [
-                { q: "¿Qué vio Pablo en Atenas?", opts: ["Mucho comercio","La ciudad entregada a la idolatría","Un gran puerto"], c: 1 },
-                { q: "¿Con quiénes discutía Pablo?", opts: ["Solo con judíos","Con filósofos epicúreos y estoicos","Con soldados"], c: 1 },
-                { q: "¿A quién estaba dedicado el altar?", opts: ["A Zeus","Al Dios no conocido","A César"], c: 1 }
+                { q: "¿Qué oficio compartían Pablo y sus nuevos amigos?", opts: ["Pescadores","Fabricantes de tiendas","Carpinteros"], c: 1 },
+                { q: "¿Qué le dijo el Señor a Pablo en una visión?", opts: ["Huye de Corinto","No temas, sino habla","Ve a Roma"], c: 1 },
+                { q: "¿Quién era el principal de la sinagoga que creyó?", opts: ["Jasón","Galión","Crispo"], c: 2 }
             ],
             words: [
-                {p:"Lugar del discurso", w:"AREOPAGO"}, 
-                {p:"Ciudad intelectual", w:"ATENAS"}, 
-                {p:"Mujer que creyó", w:"DAMARIS"}
+                {p:"Esposa de Aquila", w:"PRISCILA"}, 
+                {p:"Gobernante romano", w:"GALION"}, 
+                {p:"Lo que fabricaban", w:"TIENDAS"}
             ],
-            // IDOLATRIA = 9-4-15-12-1-20-18-9-1 (A=1)
-            code: { hint: "9-4-15-12-1-20-18-9-1", sol: "IDOLATRIA" }, 
-            sopa: ["ATENAS","PABLO","DIOS","MARTE","FILOSOFOS","CREADOR"]
+            // CORINTO = 3-16-19-9-14-20-16
+            code: { hint: "3-16-19-9-14-20-16", sol: "CORINTO" }, 
+            sopa: ["AQUILA","PRISCILA","TIENDAS","CORINTO","CRISPO","VISION"]
         };
 
-        /* SISTEMA */
+        /* SISTEMA BASE DE JUEGOS */
         let currentScore = 0;
         const PTS = 100;
         
@@ -360,13 +360,12 @@
         }
         function resetSelection() { curWordSel.forEach(e => e.classList.remove('selected')); curWordSel = []; }
 
-        /* 2. PUZZLE BLINDADO (DOBLE URL) */
+        /* 2. PUZZLE */
         function initPuzzle() {
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            // Imagen de respaldo: Acrópolis
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/The_Parthenon_in_Athens.jpg/1200px-The_Parthenon_in_Athens.jpg';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -417,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "IDOLATRIA") {
+            if(val === DATA.code.sol || val === "CORINTO") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
