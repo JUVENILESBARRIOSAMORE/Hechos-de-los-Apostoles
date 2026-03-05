@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 24</title>
+    <title>Misión: HECHOS 25</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -23,7 +23,7 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online: Ruinas de Corinto */
+            /* Fondo de respaldo online: Corinto (desde donde se escribieron las cartas) */
             background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg');
             background-size: cover; 
             background-attachment: fixed; 
@@ -138,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap24.jpg" alt="Imagen Capitulo" 
+                <img id="home-img" src="cap25.jpg" alt="Imagen Capitulo" 
                      onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1016#1016" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1063#1063" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -217,31 +217,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 24 - "Corinto"
+           DATOS CAPÍTULO 25 - "Las cartas a los tesalonicenses"
            ========================================= */
         const DATA = {
-            title: "Cap 24: Corinto",
-            intro: "Pablo llega a Corinto, un gran centro comercial lleno de idolatría. Allí conoce a Aquila y Priscila, trabaja fabricando tiendas, y recibe una visión de Dios animándolo a predicar.",
-            img: "cap24.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.1016#1016",
+            title: "Cap 25: Cartas a los Tesalonicenses",
+            intro: "Desde Corinto, Pablo escribe a los creyentes en Tesalónica. Les ofrece consuelo, aclara dudas sobre los que han muerto, y les anima a estar preparados para la Segunda Venida de Cristo.",
+            img: "cap25.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1063#1063",
             memoryPairs: [
-                {a:"Aquila", b:"Priscila"}, {a:"Corinto", b:"Comercio"}, {a:"Tiendas", b:"Oficio"},
-                {a:"Crispo", b:"Sinagoga"}, {a:"Galión", b:"Procónsul"}, {a:"Visión", b:"Promesa"}
+                {a:"Pablo", b:"Cartas"}, {a:"Tesalónica", b:"Iglesia"}, {a:"Segunda", b:"Venida"},
+                {a:"Muertos", b:"Resucitarán"}, {a:"Consuelo", b:"Hermanos"}, {a:"Timoteo", b:"Noticias"}
             ],
-            hangman: { word: "AQUILA", hint: "Judío fabricante de tiendas que hospedó a Pablo..." },
+            hangman: { word: "VENIDA", hint: "El gran evento que los tesalonicenses esperaban con ansias..." },
             quiz: [
-                { q: "¿Qué oficio compartían Pablo y sus nuevos amigos?", opts: ["Pescadores","Fabricantes de tiendas","Carpinteros"], c: 1 },
-                { q: "¿Qué le dijo el Señor a Pablo en una visión?", opts: ["Huye de Corinto","No temas, sino habla","Ve a Roma"], c: 1 },
-                { q: "¿Quién era el principal de la sinagoga que creyó?", opts: ["Jasón","Galión","Crispo"], c: 2 }
+                { q: "¿Desde qué ciudad escribió Pablo estas cartas?", opts: ["Atenas","Corinto","Jerusalén"], c: 1 },
+                { q: "¿Sobre qué tema principal había confusión en la iglesia?", opts: ["El bautismo","La comida","Los creyentes muertos"], c: 2 },
+                { q: "¿Qué les aconsejó Pablo que hicieran mientras esperaban?", opts: ["Dejar de trabajar","Velar, orar y trabajar","Irse al desierto"], c: 1 }
             ],
             words: [
-                {p:"Esposa de Aquila", w:"PRISCILA"}, 
-                {p:"Gobernante romano", w:"GALION"}, 
-                {p:"Lo que fabricaban", w:"TIENDAS"}
+                {p:"Acción prometida por Jesús", w:"VENIDA"}, 
+                {p:"Sentimiento de tranquilidad", w:"CONSUELO"}, 
+                {p:"Ciudad que recibe la carta", w:"TESALONICA"}
             ],
-            // CORINTO = 3-16-19-9-14-20-16
-            code: { hint: "3-16-19-9-14-20-16", sol: "CORINTO" }, 
-            sopa: ["AQUILA","PRISCILA","TIENDAS","CORINTO","CRISPO","VISION"]
+            // CARTAS = 3-1-18-20-1-19
+            code: { hint: "3-1-18-20-1-19", sol: "CARTAS" }, 
+            sopa: ["CARTAS","VENIDA","CONSUELO","PABLO","TIMOTEO","CRISTO"]
         };
 
         /* SISTEMA BASE DE JUEGOS */
@@ -416,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "CORINTO") {
+            if(val === DATA.code.sol || val === "CARTAS") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
