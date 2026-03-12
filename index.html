@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 25</title>
+    <title>Misión: HECHOS 26</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -23,8 +23,8 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online: Corinto (desde donde se escribieron las cartas) */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg');
+            /* Fondo de respaldo online: Biblioteca de Celso en Éfeso */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Ephesus_Celsus_Library_Fa%C3%A7ade.jpg/1200px-Ephesus_Celsus_Library_Fa%C3%A7ade.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -138,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap25.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg'}">
+                <img id="home-img" src="cap26.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Ephesus_Celsus_Library_Fa%C3%A7ade.jpg/1200px-Ephesus_Celsus_Library_Fa%C3%A7ade.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1063#1063" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1105#1105" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -217,31 +217,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 25 - "Las cartas a los tesalonicenses"
+           DATOS CAPÍTULO 26 - "Apolos en Corinto"
            ========================================= */
         const DATA = {
-            title: "Cap 25: Cartas a los Tesalonicenses",
-            intro: "Desde Corinto, Pablo escribe a los creyentes en Tesalónica. Les ofrece consuelo, aclara dudas sobre los que han muerto, y les anima a estar preparados para la Segunda Venida de Cristo.",
-            img: "cap25.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.1063#1063",
+            title: "Cap 26: Apolos en Corinto",
+            intro: "Apolos, un judío elocuente de Alejandría, llega a Éfeso conociendo solo el bautismo de Juan. Aquila y Priscila le enseñan el camino de Dios con mayor exactitud antes de que viaje a Corinto.",
+            img: "cap26.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1105#1105", // REVISAR Y ACTUALIZAR ENLACE SI ES NECESARIO
             memoryPairs: [
-                {a:"Pablo", b:"Cartas"}, {a:"Tesalónica", b:"Iglesia"}, {a:"Segunda", b:"Venida"},
-                {a:"Muertos", b:"Resucitarán"}, {a:"Consuelo", b:"Hermanos"}, {a:"Timoteo", b:"Noticias"}
+                {a:"Apolos", b:"Elocuente"}, {a:"Aquila", b:"Priscila"}, {a:"Bautismo", b:"Juan"},
+                {a:"Éfeso", b:"Ciudad"}, {a:"Escrituras", b:"Poderoso"}, {a:"Corinto", b:"Predicación"}
             ],
-            hangman: { word: "VENIDA", hint: "El gran evento que los tesalonicenses esperaban con ansias..." },
+            hangman: { word: "ALEJANDRIA", hint: "Ciudad de origen del elocuente judío Apolos..." },
             quiz: [
-                { q: "¿Desde qué ciudad escribió Pablo estas cartas?", opts: ["Atenas","Corinto","Jerusalén"], c: 1 },
-                { q: "¿Sobre qué tema principal había confusión en la iglesia?", opts: ["El bautismo","La comida","Los creyentes muertos"], c: 2 },
-                { q: "¿Qué les aconsejó Pablo que hicieran mientras esperaban?", opts: ["Dejar de trabajar","Velar, orar y trabajar","Irse al desierto"], c: 1 }
+                { q: "¿Qué bautismo conocía Apolos al principio?", opts: ["El de Juan", "El de Jesús", "El de Pedro"], c: 0 },
+                { q: "¿Quiénes le explicaron el camino de Dios más exactamente?", opts: ["Pablo y Silas", "Aquila y Priscila", "Timoteo y Lucas"], c: 1 },
+                { q: "¿De qué ciudad era originario Apolos?", opts: ["Jerusalén", "Atenas", "Alejandría"], c: 2 }
             ],
             words: [
-                {p:"Acción prometida por Jesús", w:"VENIDA"}, 
-                {p:"Sentimiento de tranquilidad", w:"CONSUELO"}, 
-                {p:"Ciudad que recibe la carta", w:"TESALONICA"}
+                {p:"Elocuente orador judío", w:"APOLOS"}, 
+                {p:"Enseñó junto a su esposo", w:"PRISCILA"}, 
+                {p:"Ciudad donde predicó después", w:"CORINTO"}
             ],
-            // CARTAS = 3-1-18-20-1-19
-            code: { hint: "3-1-18-20-1-19", sol: "CARTAS" }, 
-            sopa: ["CARTAS","VENIDA","CONSUELO","PABLO","TIMOTEO","CRISTO"]
+            // ESCRITURAS = 5-19-3-18-9-20-21-18-1-19
+            code: { hint: "5-19-3-18-9-20-21-18-1-19", sol: "ESCRITURAS" }, 
+            sopa: ["APOLOS","EFESO","CORINTO","BAUTISMO","AQUILA","JUAN"]
         };
 
         /* SISTEMA BASE DE JUEGOS */
@@ -365,7 +365,7 @@
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Temple_of_Apollo_in_Ancient_Corinth.jpg/1200px-Temple_of_Apollo_in_Ancient_Corinth.jpg';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Ephesus_Celsus_Library_Fa%C3%A7ade.jpg/1200px-Ephesus_Celsus_Library_Fa%C3%A7ade.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -416,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "CARTAS") {
+            if(val === DATA.code.sol || val === "ESCRITURAS") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
