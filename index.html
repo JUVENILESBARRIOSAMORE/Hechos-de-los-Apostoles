@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 27</title>
+    <title>Misión: HECHOS 28</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -23,8 +23,8 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online: Gran Teatro de Éfeso */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Ephesus_Grand_Theater.jpg/1200px-Ephesus_Grand_Theater.jpg');
+            /* Fondo de respaldo online: Manuscritos antiguos (Epístolas) */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/P._Oxy._VIII_1079%2C_Rev.jpg/1200px-P._Oxy._VIII_1079%2C_Rev.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -138,12 +138,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap27.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Ephesus_Grand_Theater.jpg/1200px-Ephesus_Grand_Theater.jpg'}">
+                <img id="home-img" src="cap28.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/P._Oxy._VIII_1079%2C_Rev.jpg/1200px-P._Oxy._VIII_1079%2C_Rev.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1170#1170" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1212#1212" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -217,31 +217,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 27 - "Éfeso"
+           DATOS CAPÍTULO 28 - "Días de labor y de prueba"
            ========================================= */
         const DATA = {
-            title: "Cap 27: Éfeso",
-            intro: "Pablo llega a Éfeso. Dios hace milagros por su mano, muchos queman sus libros de magia al creer, pero los fabricantes de ídolos de plata arman un gran motín.",
-            img: "cap27.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.1170#1170", 
+            title: "Cap 28: Días de Labor y Prueba",
+            intro: "Mientras estaba en Éfeso, Pablo trabajaba con sus manos para sostenerse. Enfrentó grandes pruebas, dolores y aflicciones, y escribió su primera epístola a la iglesia de Corinto.",
+            img: "cap28.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1212#1212", 
             memoryPairs: [
-                {a:"Éfeso", b:"Diana"}, {a:"Libros", b:"Magia"}, {a:"Espíritu", b:"Santo"},
-                {a:"Demetrio", b:"Platero"}, {a:"Escuela", b:"Tiranno"}, {a:"Pablo", b:"Milagros"}
+                {a:"Pablo", b:"Trabajo"}, {a:"Corinto", b:"Carta"}, {a:"Pruebas", b:"Fe"},
+                {a:"Éfeso", b:"Ministerio"}, {a:"Aflicción", b:"Gozo"}, {a:"Tito", b:"Mensajero"}
             ],
-            hangman: { word: "DIANA", hint: "Diosa pagana cuyo inmenso templo estaba en Éfeso..." },
+            hangman: { word: "CORINTIOS", hint: "A qué iglesia dirigió Pablo una importante carta en este tiempo..." },
             quiz: [
-                { q: "¿Qué hicieron los creyentes con sus libros de magia?", opts: ["Los vendieron", "Los leyeron más", "Los quemaron"], c: 2 },
-                { q: "¿Quién inició el alboroto en el teatro contra Pablo?", opts: ["Tiranno", "Demetrio el platero", "Los sacerdotes judíos"], c: 1 },
-                { q: "¿Dónde enseñaba Pablo todos los días?", opts: ["En la escuela de Tiranno", "En el templo de Diana", "En la plaza del mercado"], c: 0 }
+                { q: "¿Cómo se sostenía Pablo económicamente en Éfeso?", opts: ["Pidiendo ofrendas", "Trabajando con sus manos", "El gobierno le pagaba"], c: 1 },
+                { q: "¿Qué carta importante escribió Pablo durante esta época?", opts: ["Primera a los Corintios", "Romanos", "Hebreos"], c: 0 },
+                { q: "¿A quién envió Pablo a Corinto para ver el efecto de su carta?", opts: ["Timoteo", "Tito", "Lucas"], c: 1 }
             ],
             words: [
-                {p:"Platero que hizo el alboroto", w:"DEMETRIO"}, 
-                {p:"Diosa de los efesios", w:"DIANA"}, 
-                {p:"Práctica que abandonaron", w:"MAGIA"}
+                {p:"Oficio manual de Pablo", w:"TIENDAS"}, 
+                {p:"Mensajero enviado a Corinto", w:"TITO"}, 
+                {p:"Carta escrita por Pablo", w:"EPISTOLA"}
             ],
-            // MAGIA = 13-1-7-9-1 (A=1, B=2, C=3...)
-            code: { hint: "13-1-7-9-1 (A=1)", sol: "MAGIA" }, 
-            sopa: ["EFESO","DIANA","MAGIA","DEMETRIO","TIRANNO","MILAGROS"]
+            // TRABAJO = 20-18-1-2-1-10-16 (A=1, B=2, C=3...)
+            code: { hint: "20-18-1-2-1-10-16 (A=1)", sol: "TRABAJO" }, 
+            sopa: ["CORINTO","CARTA","TRABAJO","PRUEBAS","TITO","EFESO"]
         };
 
         /* SISTEMA BASE DE JUEGOS */
@@ -365,7 +365,7 @@
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Ephesus_Grand_Theater.jpg/1200px-Ephesus_Grand_Theater.jpg';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/P._Oxy._VIII_1079%2C_Rev.jpg/1200px-P._Oxy._VIII_1079%2C_Rev.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -416,7 +416,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "MAGIA") {
+            if(val === DATA.code.sol || val === "TRABAJO") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
