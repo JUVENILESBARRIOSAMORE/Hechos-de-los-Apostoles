@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 37</title>
+    <title>Misión: HECHOS 38</title>
     <style>
         /* ESTILOS GENERALES */
         :root {
@@ -23,8 +23,8 @@
             margin: 0; 
             padding-bottom: 90px; 
             user-select: none;
-            /* Fondo de respaldo online: Foro Romano */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Rome_Forum_Romanum_from_Capitol_2023.jpg/1200px-Rome_Forum_Romanum_from_Capitol_2023.jpg');
+            /* Fondo de respaldo online: Antigua Jerusalén / Romanos */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/David_Roberts_-_The_Siege_and_Destruction_of_Jerusalem_by_the_Romans_Under_the_Command_of_Titus%2C_A.D._70.jpg/1200px-David_Roberts_-_The_Siege_and_Destruction_of_Jerusalem_by_the_Romans_Under_the_Command_of_Titus%2C_A.D._70.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -140,13 +140,13 @@
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
                 <!-- ESTRATEGIA ONERROR -->
-                <img id="home-img" src="cap37.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Rome_Forum_Romanum_from_Capitol_2023.jpg/1200px-Rome_Forum_Romanum_from_Capitol_2023.jpg'}">
+                <img id="home-img" src="cap38.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/David_Roberts_-_The_Siege_and_Destruction_of_Jerusalem_by_the_Romans_Under_the_Command_of_Titus%2C_A.D._70.jpg/1200px-David_Roberts_-_The_Siege_and_Destruction_of_Jerusalem_by_the_Romans_Under_the_Command_of_Titus%2C_A.D._70.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <!-- ENLACE EXACTO CAP 37 -->
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1592#1592" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <!-- ENLACE EXACTO CAP 38 -->
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1637#1637" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <!-- JUEGOS -->
@@ -222,31 +222,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 37 - "Pablo comparece ante Nerón"
+           DATOS CAPÍTULO 38 - "Pablo, preso por fin"
            ========================================= */
         const DATA = {
-            title: "Cap 37: Pablo Ante Nerón",
-            intro: "Pablo es llevado ante el cruel emperador Nerón. Todos lo abandonan en su juicio, pero el Señor está a su lado dándole fuerzas, y es librado temporalmente de la boca del león.",
-            img: "cap37.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.1592#1592", 
+            title: "Cap 38: Pablo, Preso por Fin",
+            intro: "Pablo llega a Jerusalén y es reconocido en el templo por unos judíos de Asia. Estos arman un violento alboroto para matarlo, pero los soldados romanos intervienen y lo arrestan.",
+            img: "cap38.jpg", 
+            link: "https://m.egwwritings.org/es/book/198.1637#1637", 
             memoryPairs: [
-                {a:"Pablo", b:"Prisionero"}, {a:"Nerón", b:"Emperador"}, {a:"Juicio", b:"Roma"},
-                {a:"Señor", b:"Ayudador"}, {a:"Boca", b:"León"}, {a:"Defensa", b:"Evangelio"}
+                {a:"Pablo", b:"Prisionero"}, {a:"Jerusalén", b:"Ciudad"}, {a:"Templo", b:"Alboroto"},
+                {a:"Soldados", b:"Romanos"}, {a:"Judíos", b:"Asia"}, {a:"Multitud", b:"Violenta"}
             ],
-            hangman: { word: "NERON", hint: "El cruel emperador romano ante el cual compareció Pablo..." },
+            hangman: { word: "JERUSALEN", hint: "La ciudad a la que Pablo volvió y donde fue finalmente arrestado..." },
             quiz: [
-                { q: "¿Quién estuvo al lado de Pablo durante su audiencia?", opts: ["Sus amigos de Roma", "Ningún hombre, solo el Señor", "Lucas y Timoteo"], c: 1 },
-                { q: "¿Qué sintió el emperador al escuchar el poderoso mensaje de Pablo?", opts: ["Quedó conmovido temporalmente", "Se durmió durante el juicio", "Lo condenó a muerte al instante"], c: 0 },
-                { q: "Pablo testificó que fue librado de la boca del...", opts: ["Lobo", "Oso", "León"], c: 2 }
+                { q: "¿En qué ciudad arrestaron finalmente a Pablo?", opts: ["Atenas", "Jerusalén", "Éfeso"], c: 1 },
+                { q: "¿Dónde se encontraba Pablo cuando comenzó el gran alboroto?", opts: ["En el templo", "En la plaza pública", "En un barco romano"], c: 0 },
+                { q: "¿Quiénes intervinieron para evitar que la multitud enfurecida lo matara?", opts: ["Los sacerdotes", "Los soldados romanos", "Sus amigos creyentes"], c: 1 }
             ],
             words: [
-                {p:"Emperador de Roma", w:"NERON"}, 
-                {p:"Ciudad del juicio", w:"ROMA"}, 
-                {p:"De su boca fue librado Pablo", w:"LEON"}
+                {p:"Ciudad del arresto", w:"JERUSALEN"}, 
+                {p:"Lugar del alboroto", w:"TEMPLO"}, 
+                {p:"Quienes lo rescataron", w:"SOLDADOS"}
             ],
-            // DEFENSA = 4-5-6-5-14-19-1 (A=1, B=2, C=3, D=4...)
-            code: { hint: "4-5-6-5-14-19-1", sol: "DEFENSA" }, 
-            sopa: ["NERON","PABLO","ROMA","JUICIO","LEON","DEFENSA"]
+            // TEMPLO = 20-5-13-16-12-15 (A=1, B=2, C=3...)
+            code: { hint: "20-5-13-16-12-15", sol: "TEMPLO" }, 
+            sopa: ["TEMPLO","ROMANOS","ALBOROTO","PABLO","JERUSALEN","ASIA"]
         };
 
         /* SISTEMA BASE DE JUEGOS */
@@ -370,7 +370,7 @@
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Rome_Forum_Romanum_from_Capitol_2023.jpg/1200px-Rome_Forum_Romanum_from_Capitol_2023.jpg';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/David_Roberts_-_The_Siege_and_Destruction_of_Jerusalem_by_the_Romans_Under_the_Command_of_Titus%2C_A.D._70.jpg/1200px-David_Roberts_-_The_Siege_and_Destruction_of_Jerusalem_by_the_Romans_Under_the_Command_of_Titus%2C_A.D._70.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -421,7 +421,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "DEFENSA") {
+            if(val === DATA.code.sol || val === "TEMPLO") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
