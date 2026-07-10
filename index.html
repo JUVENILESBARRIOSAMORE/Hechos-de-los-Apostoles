@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Misión: HECHOS 41</title>
+    <title>Misión: HECHOS 43</title>
     <style>
         /* ESTILOS GENERALES Y CORRECCIÓN PARA CELULARES */
         * {
@@ -27,8 +27,8 @@
             margin: 0; 
             padding-bottom: 100px; 
             user-select: none;
-            /* Fondo de respaldo online: Tribunal o escena clásica */
-            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Caesarea_Maritima_theater.jpg/1200px-Caesarea_Maritima_theater.jpg');
+            /* Fondo de respaldo online: Roma Antigua */
+            background-image: url('portada.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/1200px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg');
             background-size: cover; 
             background-attachment: fixed; 
             background-position: center;
@@ -143,12 +143,12 @@
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
-                <img id="home-img" src="cap41.jpg" alt="Imagen Capitulo" 
-                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Caesarea_Maritima_theater.jpg/1200px-Caesarea_Maritima_theater.jpg'}">
+                <img id="home-img" src="cap43.jpg" alt="Imagen Capitulo" 
+                     onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/1200px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1774#1774" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
         <div id="view-puzzle" class="card">
@@ -222,31 +222,31 @@
 
     <script>
         /* =========================================
-           DATOS CAPÍTULO 41 - "Casi persuadido"
+           DATOS CAPÍTULO 43 - "En Roma"
            ========================================= */
         const DATA = {
-            title: "Cap 41: Casi Persuadido",
-            intro: "Pablo presenta su defensa ante el rey Agripa, Berenice y Festo. Relata con poder su maravillosa conversión en el camino a Damasco, llevando al rey a decir sus famosas palabras: 'Por poco me persuades a ser cristiano'.",
-            img: "cap41.jpg", 
-            link: "https://m.egwwritings.org/es/book/198.1774#1774", 
+            title: "Cap 43: En Roma",
+            intro: "Pablo llega finalmente a Roma como prisionero. A pesar de estar atado a un soldado con una cadena, se le permite vivir en una casa alquilada donde recibe a todos y predica el evangelio con libertad.",
+            img: "cap43.jpg", 
+            link: "https://m.egwwritings.org/es/book/198", 
             memoryPairs: [
-                {a:"Pablo", b:"Defensa"}, {a:"Agripa", b:"Rey"}, {a:"Festo", b:"Gobernador"},
-                {a:"Damasco", b:"Conversión"}, {a:"Luz", b:"Visión"}, {a:"Cristiano", b:"Persuadido"}
+                {a:"Pablo", b:"Prisionero"}, {a:"Roma", b:"Ciudad"}, {a:"Casa", b:"Alquilada"},
+                {a:"Soldado", b:"Guardia"}, {a:"Cadena", b:"Atado"}, {a:"Evangelio", b:"Libertad"}
             ],
-            hangman: { word: "AGRIPA", hint: "Rey que le dijo a Pablo: 'Por poco me persuades a ser cristiano'..." },
+            hangman: { word: "CADENA", hint: "Objeto con el que Pablo estaba atado a un soldado romano en todo momento..." },
             quiz: [
-                { q: "¿Qué historia relató Pablo ante el rey Agripa para defenderse?", opts: ["Su viaje a Roma", "Su conversión en el camino a Damasco", "Su oficio de hacer tiendas"], c: 1 },
-                { q: "¿Qué rey le dijo a Pablo que por poco lo persuadía a ser cristiano?", opts: ["Herodes", "Nerón", "Agripa"], c: 2 },
-                { q: "¿Cuál fue la conclusión de Festo y Agripa sobre Pablo?", opts: ["Que merecía la muerte", "Que no había hecho nada digno de muerte o prisión", "Que debía ser liberado en Jerusalén"], c: 1 }
+                { q: "¿Con quién estaba atado Pablo constantemente en Roma?", opts: ["Con un soldado romano", "Con el apóstol Lucas", "Con otro prisionero judío"], c: 0 },
+                { q: "¿A quiénes convocó Pablo primero al llegar a Roma para explicarles su situación?", opts: ["A los líderes de los judíos", "Al emperador Nerón", "Al senado romano"], c: 0 },
+                { q: "¿Qué condición especial de prisión tuvo Pablo durante sus dos años allí?", opts: ["Vivió en una casa alquilada", "Estuvo en un calabozo subterráneo", "Trabajaba en el Coliseo"], c: 0 }
             ],
             words: [
-                {p:"Rey que escuchó a Pablo", w:"AGRIPA"}, 
-                {p:"Ciudad del camino donde vio la luz", w:"DAMASCO"}, 
-                {p:"Lo que Agripa estuvo a punto de ser", w:"CRISTIANO"}
+                {p:"Capital del Imperio", w:"ROMA"}, 
+                {p:"Custodia de Pablo", w:"SOLDADO"}, 
+                {p:"A quienes se volvió al rechazar los judíos", w:"GENTILES"}
             ],
-            // CRISTIANO = 3-18-9-19-20-9-1-14-15
-            code: { hint: "3-18-9-19-20-9-1-14-15", sol: "CRISTIANO" }, 
-            sopa: ["AGRIPA","DAMASCO","FESTO","PABLO","CRISTIANO","DEFENSA"]
+            // CASA = 3-1-19-1
+            code: { hint: "3-1-19-1", sol: "CASA" }, 
+            sopa: ["ROMA","SOLDADO","GENTILES","CADENA","PABLO","CASA"]
         };
 
         /* SISTEMA BASE DE JUEGOS */
@@ -377,7 +377,7 @@
             const c = document.getElementById('puzzle-container');
             c.innerHTML = ''; pieces = [];
             
-            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Caesarea_Maritima_theater.jpg/1200px-Caesarea_Maritima_theater.jpg';
+            let fallbackUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/1200px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg';
             let bgStyle = `url('${DATA.img}'), url('${fallbackUrl}'), url('portada.jpg')`;
             
             for(let y=0; y<3; y++) {
@@ -428,7 +428,7 @@
         /* 3. CÓDIGO */
         function checkCode() {
             let val = document.getElementById('code-input').value.toUpperCase().trim();
-            if(val === DATA.code.sol || val === "CRISTIANO") {
+            if(val === DATA.code.sol || val === "CASA") {
                 document.getElementById('code-feedback').innerHTML = "<span class='success-msg'>¡CORRECTO!</span>";
                 gameWin();
             } else {
