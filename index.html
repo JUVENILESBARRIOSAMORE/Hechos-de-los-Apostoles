@@ -140,17 +140,21 @@
 
     <div class="container">
         
+        <!-- VISTA HOME -->
         <div id="view-home" class="card active">
             <h2 id="home-title">Cargando...</h2>
             <div class="img-box">
+                <!-- ESTRATEGIA ONERROR -->
                 <img id="home-img" src="cap43.jpg" alt="Imagen Capitulo" 
                      onerror="this.src='portada.jpg'; this.onerror=function(){this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/1200px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg'}">
             </div>
             <p id="home-desc">Misión de la semana...</p>
             
-            <a id="read-btn" href="https://m.egwwritings.org/es/book/198" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
+            <!-- ENLACE EXACTO CAP 43 ACTUALIZADO -->
+            <a id="read-btn" href="https://m.egwwritings.org/es/book/198.1836#1836" target="_blank" class="btn btn-primary">📖 LEER CAPÍTULO ONLINE</a>
         </div>
 
+        <!-- JUEGOS -->
         <div id="view-puzzle" class="card">
             <h2>🧩 Puzzle</h2>
             <div id="puzzle-container"></div>
@@ -209,6 +213,7 @@
         </div>
     </div>
 
+    <!-- MENÚ DE NAVEGACIÓN -->
     <nav class="nav-bar" id="main-nav">
         <div class="nav-item active" onclick="navTo('view-home', this)"><span class="nav-icon">🏠</span></div>
         <div class="nav-item" onclick="navTo('view-puzzle', this)"><span class="nav-icon">🧩</span></div>
@@ -228,7 +233,7 @@
             title: "Cap 43: En Roma",
             intro: "Pablo llega finalmente a Roma como prisionero. A pesar de estar atado a un soldado con una cadena, se le permite vivir en una casa alquilada donde recibe a todos y predica el evangelio con libertad.",
             img: "cap43.jpg", 
-            link: "https://m.egwwritings.org/es/book/198", 
+            link: "https://m.egwwritings.org/es/book/198.1836#1836", // ENLACE ACTUALIZADO
             memoryPairs: [
                 {a:"Pablo", b:"Prisionero"}, {a:"Roma", b:"Ciudad"}, {a:"Casa", b:"Alquilada"},
                 {a:"Soldado", b:"Guardia"}, {a:"Cadena", b:"Atado"}, {a:"Evangelio", b:"Libertad"}
